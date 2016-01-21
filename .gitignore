@@ -1,0 +1,10 @@
+/.vs
+/Common/obj
+/Common/bin
+/WebSite/obj
+/WebSite/bin
+/WebSite/App_Data
+/WebApi/obj
+/WebApi/bin
+*.user
+/packages

@@ -1,0 +1,67 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Override the default bootstrap behavior where horizontal description lists 
+       will truncate terms that are too long to fit in the left column 
+    */
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+
+    /* Set width on the form input elements since they're 100% wide by default */
+    input,
+    select,
+    textarea {
+        max-width: 280px;
+    }
+
+    .added-info {
+        margin-top: 20px;
+    }
+
+    .items-container {
+        padding-top: 30px;
+    }
+
+    .item-panel {
+        .panel-title {
+            margin-bottom: 3px;
+        }
+        .player-container {
+            background: black;
+            margin-bottom: 10px;
+        }
+        .player {
+            margin: 0 auto;
+            display:block;
+        }
+        .divers, .table {
+            margin-bottom: 3px;
+        }
+        a {
+            color: black;
+        }
+        .panel-body p {
+            padding: 10px;
+            a {
+                color: #505050;
+            }   
+        }
+    }
+
+    .add-item-container {
+        .validation-summary-errors {
+            ul {
+                list-style: none;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,17 @@
+﻿@model Driver.WebSite.ViewModels.ItemPageViewModel
+
+@{
+    ViewBag.Title = Model.ItemPanel.Title;
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Powrót do strony głównej", "Index")
+</div>
+
+<div class="items-container col-md-8">
+    @Html.Partial("_ItemPanel", Model.ItemPanel)
+</div>
+<div class="col-md-4">
+    @Html.Partial("_SidebarPanel")
+</div>
+

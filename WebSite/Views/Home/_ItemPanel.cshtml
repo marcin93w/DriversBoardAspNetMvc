@@ -1,0 +1,60 @@
+﻿@model Driver.WebSite.ViewModels.ItemPanelViewModel
+
+<div class="item-panel panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right">
+            <div class="score"><span class="text-danger"><strong>@Model.UpScore</strong></span> punktów <a>+1</a>
+            </div>
+            <div><a><small>Nie nadaje się</small></a>
+            </div>
+        </div>
+        <h2 class="panel-title">
+            @if (Model.GenerateLinksToItemPage)
+            {
+                @Html.ActionLink(Model.Title, "ItemPage", new {Model.Id})
+            }
+            else
+            {
+                @Model.Title
+            }
+        </h2>
+        <span class="text-muted"><small>@Model.AuthorLogin | @Model.DateAdded</small></span>
+    </div>
+    <div class="panel-body">
+        <div class="player-container embed-responsive embed-responsive-16by9">
+            <iframe id="ytplayer" class="player embed-responsive-item" type="text/html"
+                    src="https://youtube.com/embed/@Model.ContentUrl?origin=http://example.com&enablejsapi=1">
+            </iframe>
+        </div>
+        <p>
+            @if (Model.GenerateLinksToItemPage)
+            {
+                @Html.ActionLink(Model.Comment, "ItemPage", new {Model.Id})
+            }
+            else
+            {
+                @Model.Comment
+            }
+        </p>
+        @*<table class="drivers table">
+            <tr class="active">
+                <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
+                <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
+                <td><strong>KLI 32441</strong></td>
+                <td>Czerowny Reanult Megane</td>
+            </tr>
+            <tr>
+                <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
+                <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
+                <td><strong>KLI MS78</strong></td>
+                <td>Czane BMW</td>
+            </tr>
+        </table>
+        <a><small>Dodaj samochód</small></a>*@
+
+        @if (Model.GenerateLinksToItemPage)
+        {
+            <div class="read-more">@Html.ActionLink("Czytaj komentarze", "ItemPage", new { Model.Id })</div>
+        }
+    </div>
+</div>

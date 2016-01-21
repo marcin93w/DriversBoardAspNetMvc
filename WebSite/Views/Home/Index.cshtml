@@ -1,0 +1,24 @@
+﻿@model Driver.WebSite.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    @if (Model.DisplayAddedInfo)
+    {
+        <div class="added-info alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p><strong>Dziękujemy!</strong> Twój wpis został dodany.</p>
+        </div>
+    }
+
+    <div class="items-container col-md-8">
+        @foreach (var item in Model.Items)
+        {
+            @Html.Partial("_ItemPanel", item)
+        }
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("_SidebarPanel")
+    </div>
+</div>
