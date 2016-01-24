@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using Driver.Common.Models;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ApplicationDbContext = Driver.WebSite.Models.ApplicationDbContext;
 
 namespace Driver.WebSite.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public HomeController(ApplicationDbContext context)
         {

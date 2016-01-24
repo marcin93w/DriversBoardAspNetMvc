@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Driver.Common.Models;
+using Driver.WebSite.Models;
 
 namespace Driver.WebSite.ViewModels
 {
     public class AddItemViewModel : IValidatableObject
     {
-        private static Regex YoutubeVideoRegex = 
+        private static readonly Regex YoutubeVideoRegex = 
             new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
 
         [Required]

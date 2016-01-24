@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Core.Metadata.Edm;
 
-namespace Driver.Common.Models
+namespace Driver.WebSite.Models
 {
     public class Item
     {
@@ -16,6 +17,11 @@ namespace Driver.Common.Models
         public int DownScore { get; set; }
         public string Comment { get; set; }
         public DateTime DateAdded { set; get; }
-        public List<ItemRate> Rates { set; get; }
+        public ICollection<ItemRate> Rates { set; get; }
+
+        public Item()
+        {
+            Rates = new HashSet<ItemRate>();
+        }
     }
 }

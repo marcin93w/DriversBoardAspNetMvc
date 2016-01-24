@@ -1,4 +1,4 @@
-using Driver.Common.Models;
+using Driver.WebSite.Models;
 
 namespace Driver.WebSite.Migrations
 {

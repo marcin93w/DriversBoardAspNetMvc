@@ -1,5 +1,4 @@
 ﻿using System;
-using Driver.Common.Models;
 using Driver.WebSite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -7,6 +6,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using ApplicationDbContext = Driver.WebSite.Models.ApplicationDbContext;
 
 namespace Driver.WebSite
 {

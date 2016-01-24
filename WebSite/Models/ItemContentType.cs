@@ -1,4 +1,4 @@
-﻿namespace Driver.Common.Models
+﻿namespace Driver.WebSite.Models
 {
     public enum ItemContentType
     {

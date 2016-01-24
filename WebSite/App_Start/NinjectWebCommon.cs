@@ -1,6 +1,6 @@
 using System;
 using System.Web;
-using Driver.Common.Models;
+using Driver.WebSite.Models;
 using Driver.WebSite;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
@@ -24,7 +24,7 @@ namespace Driver.WebSite
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -44,6 +44,8 @@ namespace Driver.WebSite
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = 
+                    new Ninject.WebApi.DependencyResolver.NinjectDependencyResolver(kernel);
 
                 RegisterServices(kernel);
                 return kernel;

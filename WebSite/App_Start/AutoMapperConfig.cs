@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Driver.Common.Models;
+using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 
 namespace Driver.WebSite
