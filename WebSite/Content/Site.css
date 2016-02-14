@@ -19,6 +19,13 @@
     margin-top: 20px; }
   body .items-container {
     padding-top: 30px; }
+  body .item-panel .score-panel {
+    font-size: large;
+    font-weight: bold; }
+    body .item-panel .score-panel .vote:hover {
+      cursor: pointer; }
+    body .item-panel .score-panel #score {
+      margin: 0 5px; }
   body .item-panel .panel-title {
     margin-bottom: 3px; }
   body .item-panel .player-container {

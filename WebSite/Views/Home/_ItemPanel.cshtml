@@ -3,15 +3,16 @@
 <div class="item-panel panel panel-default">
     <div class="panel-heading">
         <div class="pull-right">
-            <div class="score"><span class="text-danger"><strong>@Model.UpScore</strong></span> punktów <a>+1</a>
-            </div>
-            <div><a><small>Nie nadaje się</small></a>
+            <div id="rating-panel-@Model.Id" class="score-panel">
+                <span data-bind="click: voteDown" class="vote glyphicon glyphicon-minus text-danger"></span>
+                <span data-bind="text: rate" class="score"></span>
+                <span data-bind="click: voteUp" class="vote glyphicon glyphicon-plus text-success"></span>
             </div>
         </div>
         <h2 class="panel-title">
             @if (Model.GenerateLinksToItemPage)
             {
-                @Html.ActionLink(Model.Title, "ItemPage", new {Model.Id})
+                @Html.ActionLink(Model.Title, "ItemPage", new { Model.Id })
             }
             else
             {
@@ -23,13 +24,12 @@
     <div class="panel-body">
         <div class="player-container embed-responsive embed-responsive-16by9">
             <iframe id="ytplayer" class="player embed-responsive-item" type="text/html"
-                    src="https://youtube.com/embed/@Model.ContentUrl?origin=http://example.com&enablejsapi=1">
-            </iframe>
+                    src="https://youtube.com/embed/@Model.ContentUrl?origin=http://example.com&enablejsapi=1"></iframe>
         </div>
         <p>
             @if (Model.GenerateLinksToItemPage)
             {
-                @Html.ActionLink(Model.Comment, "ItemPage", new {Model.Id})
+                @Html.ActionLink(Model.Comment, "ItemPage", new { Model.Id })
             }
             else
             {
@@ -37,20 +37,20 @@
             }
         </p>
         @*<table class="drivers table">
-            <tr class="active">
-                <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
-                <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
-                <td><strong>KLI 32441</strong></td>
-                <td>Czerowny Reanult Megane</td>
-            </tr>
-            <tr>
-                <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
-                <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
-                <td><strong>KLI MS78</strong></td>
-                <td>Czane BMW</td>
-            </tr>
-        </table>
-        <a><small>Dodaj samochód</small></a>*@
+                <tr class="active">
+                    <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
+                    <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
+                    <td><strong>KLI 32441</strong></td>
+                    <td>Czerowny Reanult Megane</td>
+                </tr>
+                <tr>
+                    <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
+                    <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
+                    <td><strong>KLI MS78</strong></td>
+                    <td>Czane BMW</td>
+                </tr>
+            </table>
+            <a><small>Dodaj samochód</small></a>*@
 
         @if (Model.GenerateLinksToItemPage)
         {

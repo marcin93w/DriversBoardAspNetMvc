@@ -31,6 +31,18 @@
     }
 
     .item-panel {
+        .score-panel {
+            font-size: large;
+            font-weight: bold;
+            .vote {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            #score {
+                margin: 0 5px;
+            }
+        }
         .panel-title {
             margin-bottom: 3px;
         }

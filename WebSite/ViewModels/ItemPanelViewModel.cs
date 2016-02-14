@@ -16,6 +16,7 @@ namespace Driver.WebSite.ViewModels
         public string ContentUrl { set; get; }
         public int UpScore { get; set; }
         public int DownScore { get; set; }
+        public int Rate => UpScore - DownScore;
         public string Comment { get; set; }
         public DateTime DateAdded { set; get; }
 
