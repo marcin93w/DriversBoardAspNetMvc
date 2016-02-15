@@ -4,9 +4,12 @@
     <div class="panel-heading">
         <div class="pull-right">
             <div id="rating-panel-@Model.Id" class="score-panel">
-                <span data-bind="click: voteDown" class="vote glyphicon glyphicon-minus text-danger"></span>
-                <span data-bind="text: rate" class="score"></span>
-                <span data-bind="click: voteUp" class="vote glyphicon glyphicon-plus text-success"></span>
+                <span data-bind="click: voteDown, css: { undo: isVotedDown() }, attr: { title: getTitleDown() }" 
+                      class="vote glyphicon glyphicon-minus text-danger"></span>
+                <span data-bind="text: rate, css: { 'text-success': isVotedUp(), 'text-danger': isVotedDown() }" 
+                      class="score"></span>
+                <span data-bind="click: voteUp, css: { undo: isVotedUp() }, attr: { title: getTitleUp() }" 
+                      class="vote glyphicon glyphicon-plus text-success"></span>
             </div>
         </div>
         <h2 class="panel-title">
@@ -19,7 +22,7 @@
                 @Model.Title
             }
         </h2>
-        <span class="text-muted"><small>@Model.AuthorLogin | @Model.DateAdded</small></span>
+        <span class="text-muted"><small>@Model.AuthorLogin | @Model.DateAdded :: @Model.UserVoting</small></span>
     </div>
     <div class="panel-body">
         <div class="player-container embed-responsive embed-responsive-16by9">

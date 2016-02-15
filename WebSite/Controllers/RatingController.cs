@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Driver.WebSite.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Driver.WebSite.Controllers
 {
@@ -18,26 +16,20 @@ namespace Driver.WebSite.Controllers
             _context = context;
         }
 
-        private async Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            var store = new UserStore<ApplicationUser>(_context);
-            var userManager = new UserManager<ApplicationUser>(store);
-            return await userManager.FindByNameAsync(User.Identity.Name);
-        }
 
-        private async Task<int?> GetCurrentRateCount(int itemId, bool positive)
+        private async Task<int?> GetCurrentRateCount(int itemId)
         {
             var query = from item in _context.Items
                         where item.Id == itemId
-                        select (positive ? item.UpScore : item.DownScore);
+                        select item.UpScore - item.DownScore;
 
             return await query.FirstAsync();
         }
 
         private async Task<int?> Rate(int itemId, bool positive)
         {
-            var user = await GetCurrentUserAsync();
-
+            var user = await this.GetCurrentUserAsync(_context);
+            
             var ratedItem = new Item { Id = itemId };
             ratedItem.Rates.Add(new ItemRate
             {
@@ -53,7 +45,7 @@ namespace Driver.WebSite.Controllers
 
             if (savedRates > 0)
             {
-                return await GetCurrentRateCount(itemId, positive);
+                return await GetCurrentRateCount(itemId);
             }
 
             return null;
@@ -73,7 +65,7 @@ namespace Driver.WebSite.Controllers
 
         private async Task<ItemRate> GetItemRate(int itemId)
         {
-            var user = await GetCurrentUserAsync();
+            var user = await this.GetCurrentUserAsync(_context);
 
             return await (from row in _context.Set<ItemRate>()
                 where row.Item.Id == itemId && row.User.Id == user.Id
@@ -92,7 +84,7 @@ namespace Driver.WebSite.Controllers
 
             if (savedRates > 0)
             {
-                return await GetCurrentRateCount(id, positive);
+                return await GetCurrentRateCount(id);
             }
 
             return null;
@@ -119,7 +111,7 @@ namespace Driver.WebSite.Controllers
 
             if (savedRates > 0)
             {
-                return await GetCurrentRateCount(id, positive);
+                return await GetCurrentRateCount(id);
             }
 
             return null;

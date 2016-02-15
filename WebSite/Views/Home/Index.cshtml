@@ -8,7 +8,7 @@
     <script>
         @foreach (var item in Model.Items)
         {
-            <text>ko.applyBindings(new RatingViewModel(@item.Id, @item.Rate, 0), $('#rating-panel-@item.Id')[0]);</text>
+            <text>ko.applyBindings(new RatingViewModel(@item.Id, @item.Rate, @item.UserVoting), $('#rating-panel-@item.Id')[0]);</text>
         }
     </script>
 }

@@ -62,6 +62,7 @@ namespace Driver.WebSite.Controllers
 
         private async Task<IEnumerable<ItemPanelViewModel>> GetItems(int? id = null)
         {
+            var user = await this.GetCurrentUserAsync(_context);
             var query =
                 from item in _context.Items
                 orderby item.DateAdded descending
@@ -74,12 +75,30 @@ namespace Driver.WebSite.Controllers
 
             var items = await query.ToArrayAsync();
 
-            return items.Select(item =>
+            var itemsViewModels = items.Select(item =>
                 {
                     var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item.Item);
                     viewModel.AuthorLogin = item.AuthorLogin;
                     return viewModel;
-                });
+                }).ToArray();
+
+            if (user != null)
+            {
+                var ratesQuery =
+                    from itemRate in _context.Set<ItemRate>()
+                    where itemRate.User.Id == user.Id
+                    select itemRate;
+
+                var rates = await ratesQuery.ToArrayAsync();
+
+                foreach (var itemViewModel in itemsViewModels)
+                {
+                    bool? userVotedPositive = rates.FirstOrDefault(r => r.Item.Id == itemViewModel.Id)?.Positive;
+                    itemViewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
+                }
+            }
+
+            return itemsViewModels;
         }
 
         [AllowAnonymous]

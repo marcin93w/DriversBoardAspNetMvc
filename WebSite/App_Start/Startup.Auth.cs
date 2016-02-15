@@ -33,7 +33,14 @@ namespace Driver.WebSite
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager)),
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsAjaxRequest(ctx.Request))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    }
                 }
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
@@ -64,6 +71,17 @@ namespace Driver.WebSite
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        private bool IsAjaxRequest(IOwinRequest request)
+        {
+            IReadableStringCollection query = request.Query;
+            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            {
+                return true;
+            }
+            IHeaderDictionary headers = request.Headers;
+            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
         }
     }
 }

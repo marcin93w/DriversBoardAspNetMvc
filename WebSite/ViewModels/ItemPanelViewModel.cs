@@ -17,6 +17,10 @@ namespace Driver.WebSite.ViewModels
         public int UpScore { get; set; }
         public int DownScore { get; set; }
         public int Rate => UpScore - DownScore;
+        /// <summary>
+        /// 1 - user voted up, -1 - user voted down, 0 - no vote
+        /// </summary>
+        public int UserVoting { get; set; } = 0;
         public string Comment { get; set; }
         public DateTime DateAdded { set; get; }
 

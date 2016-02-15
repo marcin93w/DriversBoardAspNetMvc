@@ -26,6 +26,8 @@
       cursor: pointer; }
     body .item-panel .score-panel #score {
       margin: 0 5px; }
+    body .item-panel .score-panel .undo {
+      color: gray; }
   body .item-panel .panel-title {
     margin-bottom: 3px; }
   body .item-panel .player-container {
