@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Driver.WebSite.DAL;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebGrease.Css.Extensions;
 using ApplicationDbContext = Driver.WebSite.Models.ApplicationDbContext;
 
 namespace Driver.WebSite.Controllers
@@ -18,17 +20,19 @@ namespace Driver.WebSite.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context; //TODO should be deleted
+        private readonly IItemsRepository _itemsRepository;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IItemsRepository itemsRepository)
         {
             _context = context;
+            _itemsRepository = itemsRepository;
         }
 
         [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
-            return View(new HomeViewModel(await GetItems()));
+            return View(new HomeViewModel(await GetAllItemsFromRepositoryAndConvertThemToViewModels()));
         }
 
         public ActionResult AddItem()
@@ -49,7 +53,7 @@ namespace Driver.WebSite.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
 
             var item = Mapper.Map<AddItemViewModel, Item>(addItemViewModel);
-            item.UpScore = 0;
+            item.UpVotesCount = 0;
             item.Author = user;
             item.DateAdded = DateTime.Now;
 
@@ -57,46 +61,24 @@ namespace Driver.WebSite.Controllers
 
             await _context.SaveChangesAsync();
 
-            return View("Index", new HomeViewModel(await GetItems()) { DisplayAddedInfo = true });
+            return View("Index", new HomeViewModel(await GetAllItemsFromRepositoryAndConvertThemToViewModels()) { DisplayAddedInfo = true });
         }
 
-        private async Task<IEnumerable<ItemPanelViewModel>> GetItems(int? id = null)
+        private async Task<IEnumerable<ItemPanelViewModel>> GetAllItemsFromRepositoryAndConvertThemToViewModels()
         {
-            var user = await this.GetCurrentUserAsync(_context);
-            var query =
-                from item in _context.Items
-                orderby item.DateAdded descending
-                select new { Item = item, AuthorLogin = item.Author.UserName };
+            return CreateItemPanelViewModels(await _itemsRepository.GetAllItems(this.GetCurrentUserId()));
+        }
 
-            if (id != null)
-            {
-                query = query.Where(item => item.Item.Id == id);
-            }
-
-            var items = await query.ToArrayAsync();
-
+        private IEnumerable<ItemPanelViewModel> CreateItemPanelViewModels(IEnumerable<Item> items)
+        {
             var itemsViewModels = items.Select(item =>
                 {
-                    var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item.Item);
-                    viewModel.AuthorLogin = item.AuthorLogin;
+                    var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item);
+                    viewModel.AuthorLogin = item.Author.UserName;
+                    bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
+                    viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
                     return viewModel;
                 }).ToArray();
-
-            if (user != null)
-            {
-                var ratesQuery =
-                    from itemRate in _context.Set<ItemRate>()
-                    where itemRate.User.Id == user.Id
-                    select itemRate;
-
-                var rates = await ratesQuery.ToArrayAsync();
-
-                foreach (var itemViewModel in itemsViewModels)
-                {
-                    bool? userVotedPositive = rates.FirstOrDefault(r => r.Item.Id == itemViewModel.Id)?.Positive;
-                    itemViewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
-                }
-            }
 
             return itemsViewModels;
         }
@@ -107,10 +89,10 @@ namespace Driver.WebSite.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var item = (await GetItems(id)).FirstOrDefault();
+            var item = (await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId()));
 
             if (item != null)
-                return View(new ItemPageViewModel(item));
+                return View(new ItemPageViewModel((CreateItemPanelViewModels(new[] { item })).First(), item.Comments));
             else
                 return HttpNotFound();
         }

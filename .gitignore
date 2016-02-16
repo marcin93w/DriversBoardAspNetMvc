@@ -4,7 +4,7 @@
 /WebSite/obj
 /WebSite/bin
 /WebSite/App_Data
-/WebApi/obj
-/WebApi/bin
+/WebSiteTest/obj
+/WebSiteTest/bin
 *.user
 /packages

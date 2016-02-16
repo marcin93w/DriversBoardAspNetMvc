@@ -14,9 +14,9 @@ namespace Driver.WebSite.ViewModels
         public string Title { set; get; }
         public ItemContentType ContentType { set; get; }
         public string ContentUrl { set; get; }
-        public int UpScore { get; set; }
-        public int DownScore { get; set; }
-        public int Rate => UpScore - DownScore;
+        public int UpVotesCount { get; set; }
+        public int DownVotesCount { get; set; }
+        public int Rate => UpVotesCount - DownVotesCount;
         /// <summary>
         /// 1 - user voted up, -1 - user voted down, 0 - no vote
         /// </summary>

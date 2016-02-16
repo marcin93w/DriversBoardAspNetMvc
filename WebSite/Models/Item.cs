@@ -5,7 +5,7 @@ using System.Data.Entity.Core.Metadata.Edm;
 
 namespace Driver.WebSite.Models
 {
-    public class Item
+    public class Item : IVotable
     {
         [Key]
         public int Id { set; get; }
@@ -13,15 +13,16 @@ namespace Driver.WebSite.Models
         public string Title { set; get; }
         public ItemContentType ContentType { set; get; }
         public string ContentUrl { set; get; }
-        public int UpScore { get; set; }
-        public int DownScore { get; set; }
+        public int UpVotesCount { get; set; }
+        public int DownVotesCount { get; set; }
         public string Comment { get; set; }
         public DateTime DateAdded { set; get; }
-        public ICollection<ItemRate> Rates { set; get; }
+        public ICollection<Comment> Comments { set; get; }  
+        public ICollection<ItemVote> Votes { set; get; }
 
         public Item()
         {
-            Rates = new HashSet<ItemRate>();
+            Votes = new HashSet<ItemVote>();
         }
     }
 }

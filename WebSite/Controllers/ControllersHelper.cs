@@ -14,7 +14,6 @@ namespace Driver.WebSite.Controllers
 {
     public static class ControllersHelper
     {
-        ///TODO: this should be necessary, id should be enough
         private static async Task<ApplicationUser> GetCurrentUserAsync(
             ApplicationDbContext context, IPrincipal user)
         {
@@ -33,6 +32,21 @@ namespace Driver.WebSite.Controllers
             ApplicationDbContext context)
         {
             return await GetCurrentUserAsync(context, controller.User);
+        }
+
+        private static string GetCurrentUserId(IPrincipal user)
+        {
+            return user.Identity?.GetUserId();
+        }
+
+        public static string GetCurrentUserId(this ApiController controller)
+        {
+            return GetCurrentUserId(controller.User);
+        }
+
+        public static string GetCurrentUserId(this Controller controller)
+        {
+            return GetCurrentUserId(controller.User);
         }
     }
 }

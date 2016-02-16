@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using Driver.WebSite.Models;
 using Driver.WebSite;
+using Driver.WebSite.DAL;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -64,6 +65,7 @@ namespace Driver.WebSite
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<IItemsRepository>().To<ItemsRepository>().InRequestScope();
         }        
     }
 }

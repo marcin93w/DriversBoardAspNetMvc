@@ -21,7 +21,7 @@ namespace Driver.WebSite.Controllers
         {
             var query = from item in _context.Items
                         where item.Id == itemId
-                        select item.UpScore - item.DownScore;
+                        select item.UpVotesCount - item.DownVotesCount;
 
             return await query.FirstAsync();
         }
@@ -31,7 +31,7 @@ namespace Driver.WebSite.Controllers
             var user = await this.GetCurrentUserAsync(_context);
             
             var ratedItem = new Item { Id = itemId };
-            ratedItem.Rates.Add(new ItemRate
+            ratedItem.Votes.Add(new ItemVote
             {
                 Item = ratedItem,
                 Positive = positive,
@@ -39,7 +39,7 @@ namespace Driver.WebSite.Controllers
             });
 
             _context.Items.Attach(ratedItem);
-            _context.Set<ItemRate>().Add(ratedItem.Rates.First());
+            _context.Set<ItemVote>().Add(ratedItem.Votes.First());
 
             var savedRates = await _context.SaveChangesAsync();
 
@@ -63,11 +63,11 @@ namespace Driver.WebSite.Controllers
             return await Rate(id, false);
         }
 
-        private async Task<ItemRate> GetItemRate(int itemId)
+        private async Task<ItemVote> GetItemRate(int itemId)
         {
             var user = await this.GetCurrentUserAsync(_context);
 
-            return await (from row in _context.Set<ItemRate>()
+            return await (from row in _context.Set<ItemVote>()
                 where row.Item.Id == itemId && row.User.Id == user.Id
                 select row).FirstAsync();
         }
@@ -78,7 +78,7 @@ namespace Driver.WebSite.Controllers
             if (itemRate.Positive != positive)
                 return null;
 
-            _context.Set<ItemRate>().Remove(itemRate);
+            _context.Set<ItemVote>().Remove(itemRate);
 
             var savedRates = await _context.SaveChangesAsync();
 

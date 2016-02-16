@@ -4,12 +4,22 @@
     ViewBag.Title = Model.ItemPanel.Title;
 }
 
+@section scripts {
+    <script src="~/Scripts/driver.js"></script>
+    <script>
+        ko.applyBindings(
+            new RatingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting), 
+            $('#rating-panel-@Model.ItemPanel.Id')[0]);
+    </script>
+}
+
 <div class="breadcrumb">
     @Html.ActionLink("Powrót do strony głównej", "Index")
 </div>
 
 <div class="items-container col-md-8">
     @Html.Partial("_ItemPanel", Model.ItemPanel)
+    @Html.Partial("_Comments");
 </div>
 <div class="col-md-4">
     @Html.Partial("_SidebarPanel")

@@ -28,10 +28,10 @@ namespace Driver.WebSite.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Item>()
-                .Property(i => i.UpScore)
+                .Property(i => i.UpVotesCount)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
             modelBuilder.Entity<Item>()
-                .Property(i => i.DownScore)
+                .Property(i => i.DownVotesCount)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
             base.OnModelCreating(modelBuilder);
         }
