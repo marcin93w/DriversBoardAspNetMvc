@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using ApplicationDbContext = Driver.WebSite.Models.ApplicationDbContext;
+using ApplicationDbContext = Driver.WebSite.DAL.ApplicationDbContext;
 
 namespace Driver.WebSite
 {

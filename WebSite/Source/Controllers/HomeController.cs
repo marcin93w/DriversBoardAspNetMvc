@@ -12,8 +12,7 @@ using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebGrease.Css.Extensions;
-using ApplicationDbContext = Driver.WebSite.Models.ApplicationDbContext;
+using ApplicationDbContext = Driver.WebSite.DAL.ApplicationDbContext;
 
 namespace Driver.WebSite.Controllers
 {
@@ -53,7 +52,6 @@ namespace Driver.WebSite.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
 
             var item = Mapper.Map<AddItemViewModel, Item>(addItemViewModel);
-            item.UpVotesCount = 0;
             item.Author = user;
             item.DateAdded = DateTime.Now;
 

@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
+using Driver.WebSite.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Driver.WebSite.Models
+namespace Driver.WebSite.DAL
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

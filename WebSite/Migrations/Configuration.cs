@@ -1,3 +1,4 @@
+using Driver.WebSite.DAL;
 using Driver.WebSite.Models;
 
 namespace Driver.WebSite.Migrations
