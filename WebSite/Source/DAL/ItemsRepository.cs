@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Driver.WebSite.Models;
 
 namespace Driver.WebSite.DAL
@@ -19,33 +20,27 @@ namespace Driver.WebSite.DAL
 
         public async Task<IEnumerable<Item>> GetAllItems(string userId)
         {
-            var data = await (from item in _context.Items
+            var source = _context.Items.Include(i => i.Author)
+                .Include(i => i.Comments)
+                .Include(i => i.Comments.Select(c => c.User));
+            var items = await (from item in source
                                orderby item.DateAdded descending
-                               select new { Item = item, AuthorLogin = item.Author.UserName })
-                    .ToArrayAsync();
-            var items = data.Select(i =>
-            {
-                i.Item.Author = new ApplicationUser { UserName = i.AuthorLogin };
-                return i.Item;
-            });
+                               select item).ToArrayAsync();
 
-            return await LoadVotes(items.ToArray(), userId);
+            return await LoadVotes(items, userId);
         }
 
         public async Task<Item> GetItem(int itemId, string userId)
         {
-            var data = await (from item in _context.Items.Include(i => i.Comments)
+            var source = _context.Items.Include(i => i.Author)
+                .Include(i => i.Comments)
+                .Include(i => i.Comments.Select(c => c.User));
+            var items = await (from item in source
                                where item.Id == itemId
                                orderby item.DateAdded descending
-                               select new { Item = item, AuthorLogin = item.Author.UserName })
-                   .ToArrayAsync();
-            var items = data.Select(i =>
-            {
-                i.Item.Author = new ApplicationUser {UserName = i.AuthorLogin};
-                return i.Item;
-            });
+                               select item).ToArrayAsync();
 
-            return (await LoadVotes(items.ToArray(), userId)).First();
+            return (await LoadVotes(items, userId)).First();
         }
 
         private async Task<IEnumerable<Item>> LoadVotes(Item[] items, string userId)

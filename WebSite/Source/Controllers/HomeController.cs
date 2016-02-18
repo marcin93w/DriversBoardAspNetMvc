@@ -26,6 +26,7 @@ namespace Driver.WebSite.Controllers
         {
             _context = context;
             _itemsRepository = itemsRepository;
+            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         [AllowAnonymous]
@@ -69,16 +70,16 @@ namespace Driver.WebSite.Controllers
 
         private IEnumerable<ItemPanelViewModel> CreateItemPanelViewModels(IEnumerable<Item> items)
         {
-            var itemsViewModels = items.Select(item =>
-                {
-                    var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item);
-                    viewModel.AuthorLogin = item.Author.UserName;
-                    bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
-                    viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
-                    return viewModel;
-                }).ToArray();
+            return items.Select(CreateItemPanelViewModel);
+        }
 
-            return itemsViewModels;
+        private ItemPanelViewModel CreateItemPanelViewModel(Item item)
+        {
+            var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item);
+            viewModel.AuthorLogin = item.Author.UserName;
+            bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
+            viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
+            return viewModel;
         }
 
         [AllowAnonymous]
@@ -90,9 +91,38 @@ namespace Driver.WebSite.Controllers
             var item = (await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId()));
 
             if (item != null)
-                return View(new ItemPageViewModel((CreateItemPanelViewModels(new[] { item })).First(), item.Comments));
+                return View(new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments));
             else
                 return HttpNotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddComment(AddCommentViewModel addCommentViewModel)
+        {
+            var user = await this.GetCurrentUserAsync(_context);
+            var item = await _itemsRepository.GetItem(addCommentViewModel.ItemId, user.Id);
+
+            var comment = new Comment
+            {
+                Item = item,
+                Text = addCommentViewModel.Text,
+                User = user,
+                DateTime = DateTime.Now
+            };
+
+            _context.Comments.Add(comment);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _context.Comments.Remove(comment);
+                return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments, ex));
+            }
+
+            return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel( item ), item.Comments, comment.Id));
         }
     }
 }

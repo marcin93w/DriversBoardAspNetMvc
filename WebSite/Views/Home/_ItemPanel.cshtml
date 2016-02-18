@@ -32,11 +32,11 @@
         <p>
             @if (Model.GenerateLinksToItemPage)
             {
-                @Html.ActionLink(Model.Comment, "ItemPage", new { Model.Id })
+                @Html.ActionLink(Model.Description, "ItemPage", new { Model.Id })
             }
             else
             {
-                @Model.Comment
+                @Model.Description
             }
         </p>
         @*<table class="drivers table">

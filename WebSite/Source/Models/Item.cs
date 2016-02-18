@@ -15,7 +15,7 @@ namespace Driver.WebSite.Models
         public string ContentUrl { set; get; }
         public int UpVotesCount { get; set; }
         public int DownVotesCount { get; set; }
-        public string Comment { get; set; }
+        public string Description { get; set; }
         public DateTime DateAdded { set; get; }
         public ICollection<Comment> Comments { set; get; }  
         public ICollection<ItemVote> Votes { set; get; }
@@ -23,6 +23,7 @@ namespace Driver.WebSite.Models
         public Item()
         {
             Votes = new HashSet<ItemVote>();
+            Comments = new HashSet<Comment>();
         }
     }
 }

@@ -249,6 +249,7 @@
     <Compile Include="Source\Models\Vote.cs" />
     <Compile Include="Source\ViewModels\AccountViewModels.cs" />
     <Compile Include="Source\Models\Comment.cs" />
+    <Compile Include="Source\ViewModels\AddCommentViewModel.cs" />
     <Compile Include="Source\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\Home\ItemPage.cshtml" />
     <Content Include="Views\Home\_SidebarPanel.cshtml" />
     <Content Include="Views\Home\_Comments.cshtml" />
+    <Content Include="Views\Home\_AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

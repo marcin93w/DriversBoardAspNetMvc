@@ -35,5 +35,7 @@ namespace Driver.WebSite.DAL
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<Driver.WebSite.Models.Comment> Comments { get; set; }
     }
 }

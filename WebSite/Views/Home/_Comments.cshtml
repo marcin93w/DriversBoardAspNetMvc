@@ -1,20 +1,11 @@
-﻿@model dynamic
+﻿@model IEnumerable<Driver.WebSite.Models.Comment>
 
 <div class="item-comments panel panel-default panel-body">
-    <div class="comment panel panel-default">
-        <div class="panel-heading">Autor | data</div>
-        <div class="panel-body">Tutaj treść komentarza</div>
-    </div>
-    <div class="comment panel panel-default">
-        <div class="panel-heading">Autor | data</div>
-        <div class="panel-body">Tutaj treść komentarza</div>
-    </div>
-    <div class="comment panel panel-default">
-        <div class="panel-heading">Autor | data</div>
-        <div class="panel-body">Tutaj treść komentarza</div>
-    </div>
-    <div class="comment panel panel-default">
-        <div class="panel-heading">Autor | data</div>
-        <div class="panel-body">Tutaj treść komentarza</div>
-    </div>
+    @foreach (var comment in Model)
+    {
+        <div class="comment panel panel-default">
+            <div class="panel-heading">@comment.User.UserName | @comment.DateTime</div>
+            <div class="panel-body">@comment.Text</div>
+        </div>
+    }
 </div>
