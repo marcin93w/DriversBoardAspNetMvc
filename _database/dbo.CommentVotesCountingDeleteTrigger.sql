@@ -1,11 +1,11 @@
-﻿CREATE TRIGGER [VotesCountingDeleteTrigger]
-	ON [dbo].[ItemVotes]
+﻿CREATE TRIGGER [CommentVotesCountingDeleteTrigger]
+	ON [dbo].[CommentVotes]
 	FOR DELETE
 	AS
 	BEGIN
-		UPDATE Items 
+		UPDATE Comments 
 		SET UpVotesCount = UpVotesCount - deleted.Positive,
 		DownVotesCount = DownVotesCount - CASE WHEN deleted.Positive = 0 THEN 1 ELSE 0 END
-		FROM Items 
-		JOIN deleted ON deleted.Votable_Id = Items.Id
+		FROM Comments 
+		JOIN deleted ON deleted.Votable_Id = Comments.Id
 	END

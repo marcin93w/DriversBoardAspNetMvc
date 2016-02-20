@@ -66,6 +66,8 @@ namespace Driver.WebSite
         {
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
             kernel.Bind<IItemsRepository>().To<ItemsRepository>().InRequestScope();
+            kernel.Bind<IVotesRepository<Item>>().To<ItemVotesRepository>();
+            kernel.Bind<IVotesRepository<Comment>>().To<CommentVotesRepository>();
         }        
     }
 }

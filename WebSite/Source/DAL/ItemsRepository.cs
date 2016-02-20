@@ -51,14 +51,14 @@ namespace Driver.WebSite.DAL
                 var votesQuery =
                     from itemVote in _context.Set<ItemVote>()
                     where itemVote.User.Id == userId
-                        && itemsIds.Contains(itemVote.Item.Id)
+                        && itemsIds.Contains(itemVote.Votable.Id)
                     select itemVote;
 
                 var votes = await votesQuery.ToArrayAsync();
 
                 foreach (var item in items)
                 {
-                    item.Votes = votes.Where(v => v.Item == item).ToArray();
+                    item.Votes = votes.Where(v => v.Votable == item).ToArray();
                 }
             }
 

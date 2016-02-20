@@ -4,9 +4,9 @@ using System.Data;
 
 namespace Driver.WebSite.Models
 {
-    public class ItemVote : Vote
-    {
-        [Index("IX_Rate", 1, IsUnique = true)]
-        public Item Item { get; set; }
-    }
+    //public class ItemVote : Vote
+    //{
+    //    [Index("IX_Rate", 1, IsUnique = true)]
+    //    public Item Item { get; set; }
+    //}
 }

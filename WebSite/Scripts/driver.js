@@ -48,7 +48,7 @@ var RatingViewModel = (function () {
     ///TODO change to promise
     RatingViewModel.prototype.vote = function (method, onSuccess) {
         var _this = this;
-        var url = 'http://localhost:5185/api/rating/';
+        var url = 'http://localhost:5185/api/itemsrating/';
         url += method;
         url += '/' + this.id;
         $.ajax(url)

@@ -21,6 +21,9 @@ namespace Driver.WebSite
             cfg.CreateMap<Item, ItemPanelViewModel>();
             cfg.CreateMap<Item, ItemPageViewModel>();
             cfg.CreateMap<AddItemViewModel, Item>();
+
+            cfg.CreateMap<Vote<Item>, ItemVote>();
+            cfg.CreateMap<Vote<Comment>, CommentVote>();
         }
     }
 }

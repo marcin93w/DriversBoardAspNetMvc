@@ -8,6 +8,7 @@ namespace Driver.WebSite.Models
 {
     public interface IVotable
     {
+        int Id { set; get; }
         int UpVotesCount { set; get; }
         int DownVotesCount { set; get; }
     }

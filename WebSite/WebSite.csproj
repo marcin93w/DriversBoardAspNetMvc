@@ -240,6 +240,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Source\DAL\ApplicationDbContext.cs" />
+    <Compile Include="Source\DAL\ItemVotesRepository.cs" />
+    <Compile Include="Source\DAL\IVotesRepository.cs" />
     <Compile Include="Source\Models\ApplicationUser.cs" />
     <Compile Include="Source\Models\CommentVote.cs" />
     <Compile Include="Source\Models\IVotable.cs" />
