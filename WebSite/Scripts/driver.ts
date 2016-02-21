@@ -1,16 +1,20 @@
 ﻿"use strict";
 
-class RatingViewModel {
+abstract class VotingViewModel {
+    private votingApiUrl: string;
     private id: number;
     private currentUserVote: KnockoutObservable<number>;
 
     rate: KnockoutObservable<number>;
 
     constructor(id: number, rate: number, currentUserVote: number) {
+        this.votingApiUrl = 'http://localhost:5185/api/' + this.getControllerName() + '/';
         this.id = id;
         this.currentUserVote = ko.observable(currentUserVote);
         this.rate = ko.observable(rate);
     }
+
+    protected abstract getControllerName(): string;
 
     isVotedUp(): boolean {
         return this.currentUserVote() > 0;
@@ -58,7 +62,7 @@ class RatingViewModel {
 
     ///TODO change to promise
     private vote(method, onSuccess) {
-        var url = 'http://localhost:5185/api/itemsrating/';
+        var url = this.votingApiUrl;
         url += method;
         url += '/' + this.id;
         $.ajax(url)
@@ -87,5 +91,17 @@ class RatingViewModel {
 
     private displayUnauthirizedError() {
         alert('Musisz się zalogować żeby oddać głos.');
+    }
+}
+
+class ItemsVotingViewModel extends VotingViewModel {
+    getControllerName(): string {
+        return 'itemsrating';
+    }
+}
+
+class CommentsVotingViewModel extends VotingViewModel {
+    getControllerName(): string {
+        return 'commentsrating';
     }
 }

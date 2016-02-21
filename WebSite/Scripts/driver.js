@@ -1,23 +1,29 @@
 "use strict";
-var RatingViewModel = (function () {
-    function RatingViewModel(id, rate, currentUserVote) {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var VotingViewModel = (function () {
+    function VotingViewModel(id, rate, currentUserVote) {
+        this.votingApiUrl = 'http://localhost:5185/api/' + this.getControllerName() + '/';
         this.id = id;
         this.currentUserVote = ko.observable(currentUserVote);
         this.rate = ko.observable(rate);
     }
-    RatingViewModel.prototype.isVotedUp = function () {
+    VotingViewModel.prototype.isVotedUp = function () {
         return this.currentUserVote() > 0;
     };
-    RatingViewModel.prototype.isVotedDown = function () {
+    VotingViewModel.prototype.isVotedDown = function () {
         return this.currentUserVote() < 0;
     };
-    RatingViewModel.prototype.getTitleUp = function () {
+    VotingViewModel.prototype.getTitleUp = function () {
         return this.isVotedUp() ? 'Cofnij głos' : 'Mocne';
     };
-    RatingViewModel.prototype.getTitleDown = function () {
+    VotingViewModel.prototype.getTitleDown = function () {
         return this.isVotedDown() ? 'Cofnij głos' : 'Nie nadaje się';
     };
-    RatingViewModel.prototype.voteUp = function () {
+    VotingViewModel.prototype.voteUp = function () {
         var _this = this;
         switch (this.currentUserVote()) {
             case -1:
@@ -31,7 +37,7 @@ var RatingViewModel = (function () {
                 break;
         }
     };
-    RatingViewModel.prototype.voteDown = function () {
+    VotingViewModel.prototype.voteDown = function () {
         var _this = this;
         switch (this.currentUserVote()) {
             case -1:
@@ -46,9 +52,9 @@ var RatingViewModel = (function () {
         }
     };
     ///TODO change to promise
-    RatingViewModel.prototype.vote = function (method, onSuccess) {
+    VotingViewModel.prototype.vote = function (method, onSuccess) {
         var _this = this;
-        var url = 'http://localhost:5185/api/itemsrating/';
+        var url = this.votingApiUrl;
         url += method;
         url += '/' + this.id;
         $.ajax(url)
@@ -71,13 +77,33 @@ var RatingViewModel = (function () {
             }
         });
     };
-    RatingViewModel.prototype.displayVotingError = function (error) {
+    VotingViewModel.prototype.displayVotingError = function (error) {
         console.error(error.Message || error.message || error);
         alert("Nie udało się zagłosować, spróbuj ponownie.");
     };
-    RatingViewModel.prototype.displayUnauthirizedError = function () {
+    VotingViewModel.prototype.displayUnauthirizedError = function () {
         alert('Musisz się zalogować żeby oddać głos.');
     };
-    return RatingViewModel;
+    return VotingViewModel;
 })();
+var ItemsVotingViewModel = (function (_super) {
+    __extends(ItemsVotingViewModel, _super);
+    function ItemsVotingViewModel() {
+        _super.apply(this, arguments);
+    }
+    ItemsVotingViewModel.prototype.getControllerName = function () {
+        return 'itemsrating';
+    };
+    return ItemsVotingViewModel;
+})(VotingViewModel);
+var CommentsVotingViewModel = (function (_super) {
+    __extends(CommentsVotingViewModel, _super);
+    function CommentsVotingViewModel() {
+        _super.apply(this, arguments);
+    }
+    CommentsVotingViewModel.prototype.getControllerName = function () {
+        return 'commentsrating';
+    };
+    return CommentsVotingViewModel;
+})(VotingViewModel);
 //# sourceMappingURL=driver.js.map

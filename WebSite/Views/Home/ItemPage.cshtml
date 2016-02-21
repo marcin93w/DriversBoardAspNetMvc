@@ -9,7 +9,7 @@
     <script src="~/Scripts/driver.js"></script>
     <script>
         ko.applyBindings(
-            new RatingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting), 
+            new ItemsVotingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting), 
             $('#rating-panel-@Model.ItemPanel.Id')[0]);
     </script>
 }
