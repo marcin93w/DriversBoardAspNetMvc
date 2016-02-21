@@ -12,4 +12,12 @@ namespace Driver.WebSite.Models
         int UpVotesCount { set; get; }
         int DownVotesCount { set; get; }
     }
+
+    public static class VotableExtensions
+    {
+        public static int GetVotesCount(this IVotable votable)
+        {
+            return votable.UpVotesCount - votable.DownVotesCount;
+        }
+    }
 }

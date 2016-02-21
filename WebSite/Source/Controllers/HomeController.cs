@@ -91,7 +91,7 @@ namespace Driver.WebSite.Controllers
             var item = (await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId()));
 
             if (item != null)
-                return View(new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments));
+                return View(new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel)));
             else
                 return HttpNotFound();
         }
@@ -119,10 +119,20 @@ namespace Driver.WebSite.Controllers
             catch (Exception ex)
             {
                 _context.Comments.Remove(comment);
-                return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments, ex));
+                return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel), ex));
             }
 
-            return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel( item ), item.Comments, comment.Id));
+            return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel( item ), item.Comments.Select(CreateCommentViewModel), comment.Id));
+        }
+
+        private CommentViewModel CreateCommentViewModel(Comment comment)
+        {
+            var viewModel = Mapper.Map<Comment, CommentViewModel>(comment);
+            viewModel.AuthorLogin = comment.User.UserName;
+            bool? userVotedPositive = comment.CommentVotes.FirstOrDefault()?.Positive;
+            viewModel.UserVote = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
+            viewModel.VotesCount = comment.GetVotesCount();
+            return viewModel;
         }
     }
 }

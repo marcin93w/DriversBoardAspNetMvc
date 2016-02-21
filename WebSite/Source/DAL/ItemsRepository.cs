@@ -59,10 +59,30 @@ namespace Driver.WebSite.DAL
                 foreach (var item in items)
                 {
                     item.Votes = votes.Where(v => v.Votable == item).ToArray();
+                    if (item.Comments != null && item.Comments.Count > 0)
+                    {
+                        await LoadCommentsVotes(item, userId);
+                    }
                 }
             }
 
             return items;
+        }
+
+        private async Task LoadCommentsVotes(Item item, string userId)
+        {
+            var votesQuery =
+                from commentVote in _context.Set<CommentVote>()
+                where commentVote.User.Id == userId
+                    && commentVote.Votable.Item.Id == item.Id
+                select commentVote;
+
+            var votes = await votesQuery.ToArrayAsync();
+
+            foreach (var comment in item.Comments)
+            {
+                comment.CommentVotes = votes.Where(v => v.Votable.Id == comment.Id).ToArray();
+            }
         }
     }
 }

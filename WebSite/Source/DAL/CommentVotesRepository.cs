@@ -43,7 +43,7 @@ namespace Driver.WebSite.DAL
         public async Task<int> AddVote(Vote<Comment> vote)
         {
             var commentVote = GetCommentVoteFromBaseClass(vote);
-            vote.Votable.CommentVotes.Add(commentVote);
+            //vote.Votable.CommentVotes.Add(commentVote);
             _context.Comments.Attach(commentVote.Votable);
             _context.Users.Attach(commentVote.User);
             _context.Set<CommentVote>().Add(commentVote);

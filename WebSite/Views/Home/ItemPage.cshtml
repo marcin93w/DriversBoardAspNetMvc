@@ -1,4 +1,5 @@
-﻿@using Driver.WebSite.ViewModels
+﻿@using Driver.WebSite.Models
+@using Driver.WebSite.ViewModels
 @model ItemPageViewModel
 
 @{
@@ -9,8 +10,12 @@
     <script src="~/Scripts/driver.js"></script>
     <script>
         ko.applyBindings(
-            new ItemsVotingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting), 
+            new ItemsVotingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting),
             $('#rating-panel-@Model.ItemPanel.Id')[0]);
+        @foreach (var comment in Model.Comments)
+        {
+            <text>ko.applyBindings(new CommentsVotingViewModel(@comment.Id, @comment.VotesCount, @comment.UserVote), $('#comment-rating-panel-@comment.Id')[0]);</text>
+        }
     </script>
 }
 
