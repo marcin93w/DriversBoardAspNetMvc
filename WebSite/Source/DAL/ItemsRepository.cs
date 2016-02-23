@@ -21,8 +21,8 @@ namespace Driver.WebSite.DAL
         public async Task<IEnumerable<Item>> GetAllItems(string userId)
         {
             var source = _context.Items.Include(i => i.Author)
-                .Include(i => i.Comments)
-                .Include(i => i.Comments.Select(c => c.User));
+                .Include(i => i.DriversOccurrences)
+                .Include(i => i.DriversOccurrences.Select(o => o.Driver));
             var items = await (from item in source
                                orderby item.DateAdded descending
                                select item).ToArrayAsync();
@@ -33,6 +33,8 @@ namespace Driver.WebSite.DAL
         public async Task<Item> GetItem(int itemId, string userId)
         {
             var source = _context.Items.Include(i => i.Author)
+                .Include(i => i.DriversOccurrences)
+                .Include(i => i.DriversOccurrences.Select(o => o.Driver))
                 .Include(i => i.Comments)
                 .Include(i => i.Comments.Select(c => c.User));
             var items = await (from item in source

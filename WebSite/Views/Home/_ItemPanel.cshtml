@@ -39,21 +39,17 @@
                 @Model.Description
             }
         </p>
-        @*<table class="drivers table">
-                <tr class="active">
-                    <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
-                    <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
-                    <td><strong>KLI 32441</strong></td>
-                    <td>Czerowny Reanult Megane</td>
-                </tr>
+        <table class="drivers table">
+            @foreach (var driver in @Model.Drivers)
+            {
                 <tr>
                     <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
-                    <td><div class="driver-score"><strong class="text-danger">10</strong></div></td>
-                    <td><strong>KLI MS78</strong></td>
-                    <td>Czane BMW</td>
+                    <td><div class="driver-score"><strong class="text-danger">@driver.DownVotesCount</strong></div></td>
+                    <td><strong>@driver.Plate</strong></td>
+                    <td>@driver.Description</td>
                 </tr>
-            </table>
-            <a><small>Dodaj samochód</small></a>*@
+            }
+        </table>
 
         @if (Model.GenerateLinksToItemPage)
         {

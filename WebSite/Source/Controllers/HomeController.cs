@@ -79,7 +79,21 @@ namespace Driver.WebSite.Controllers
             viewModel.AuthorLogin = item.Author.UserName;
             bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
             viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
+            viewModel.Drivers = item.DriversOccurrences.Select(CreateItemDriverViewModel);
             return viewModel;
+        }
+
+        private ItemDriverViewModel CreateItemDriverViewModel(DriverOccurrence driverOccurrence)
+        {
+            return new ItemDriverViewModel
+            {
+                Id = driverOccurrence.Driver.Id,
+                Plate = driverOccurrence.Driver.Plate,
+                Description = driverOccurrence.Description ?? driverOccurrence.Driver.Description,
+                DownVotesCount = driverOccurrence.DownVotesCount,
+                StartSecond = driverOccurrence.StartSecond,
+                EndSecond = driverOccurrence.EndSecond
+            };
         }
 
         [AllowAnonymous]

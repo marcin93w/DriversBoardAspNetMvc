@@ -23,6 +23,7 @@ namespace Driver.WebSite.ViewModels
         public int UserVoting { get; set; } = 0;
         public string Description { get; set; }
         public DateTime DateAdded { set; get; }
+        public IEnumerable<ItemDriverViewModel> Drivers { set; get; } 
 
         public bool GenerateLinksToItemPage { set; get; } = true;
     }

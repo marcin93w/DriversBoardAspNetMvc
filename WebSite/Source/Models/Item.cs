@@ -19,11 +19,13 @@ namespace Driver.WebSite.Models
         public DateTime DateAdded { set; get; }
         public ICollection<Comment> Comments { set; get; }  
         public ICollection<ItemVote> Votes { set; get; }
+        public ICollection<DriverOccurrence> DriversOccurrences { set; get; } 
 
         public Item()
         {
             Votes = new HashSet<ItemVote>();
             Comments = new HashSet<Comment>();
+            DriversOccurrences = new HashSet<DriverOccurrence>();
         }
     }
 }
