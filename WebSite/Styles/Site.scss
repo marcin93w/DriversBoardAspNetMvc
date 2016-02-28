@@ -1,11 +1,43 @@
-﻿body {
+﻿$brand-color: #a94242;
+$background-color: #333;
+$top-panel-color: #222;
+$font-default: #b0b0b0;
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: $background-color;
+    color: $font-default;
 
     /* Set padding to keep content from hitting the edges */
     .body-content {
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    .btn-default {
+        background-color: $top-panel-color;
+        color: $font-default;
+        border-color: $background-color;
+        &:hover {
+            background-color: black;
+            color: $font-default;
+            border-color: $background-color;
+        }
+    }
+
+    .navbar {
+
+        .navbar-logo img {
+            height: 40px;
+            margin: 5px;
+            margin-right: 30px;
+        }
+
+        .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
+            color: $brand-color;
+        }
+
     }
 
     /* Override the default bootstrap behavior where horizontal description lists 
@@ -17,8 +49,7 @@
 
     /* Set width on the form input elements since they're 100% wide by default */
     input,
-    select,
-    textarea {
+    select {
         max-width: 280px;
     }
 
@@ -30,24 +61,49 @@
         padding-top: 30px;
     }
 
-    .item-panel {
-        .score-panel {
-            font-size: large;
-            font-weight: bold;
-            .vote {
-                &:hover {
-                    cursor: pointer;
+    .panel {
+        background-color: $top-panel-color;
+        border-color: $top-panel-color;
+        .panel-heading {
+            background-color: $top-panel-color;
+            border-color: $background-color;
+            .panel-title {
+                margin-bottom: 3px;
+                color: #fff;
+                a {
+                    color: #fff;
                 }
             }
-            #score {
-                margin: 0 5px;
-            }
-            & .undo {
-                color: gray;
+            .score-panel {
+                color: #fff;
+                font-weight: bold;
+                .vote {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    margin: 0 2px;
+                }
+                #score {
+                    margin: 0 10px;
+                }
+                & .undo {
+                    color: gray;
+                }
             }
         }
-        .panel-title {
-            margin-bottom: 3px;
+        .panel-body {
+           background-color: $background-color;
+            p, a {
+                color: $font-default;
+            } 
+        }
+    }
+
+    .item-panel {
+        .panel-heading {
+            .score-panel {
+                font-size: 20px;
+            }
         }
         .player-container {
             background: black;
@@ -59,15 +115,34 @@
         }
         .divers, .table {
             margin-bottom: 3px;
-        }
-        a {
-            color: black;
+            td {
+                border-color: $top-panel-color;
+            }
+            .plate-col {
+                width: 100px;
+            }
+            .score-col {
+                width: 40px;
+                text-align: right;
+                .driver-score {
+                    font-size: large;
+                }
+            }
+            .vote-col {
+                width: 20px;
+                span {
+                    vertical-align: middle;
+                }
+            }
         }
         .panel-body p {
             padding: 10px;
-            a {
-                color: #505050;
-            }   
+        }
+    }
+
+    .comment {
+        .score-panel {
+            font-size: 16px;
         }
     }
 
@@ -77,6 +152,10 @@
                 list-style: none;
             }
         }
+    }
+
+    footer {
+        clear: both;
     }
 
 }

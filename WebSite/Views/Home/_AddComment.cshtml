@@ -1,26 +1,28 @@
 ﻿@model Driver.WebSite.ViewModels.AddCommentViewModel
 
-@using (Html.BeginForm("AddComment", "Home")) 
+@using (Html.BeginForm("AddComment", "Home"))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Comment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-            </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="panel-title">Dodaj komentarz</span>
         </div>
+        <div class="panel-body form-horizontal">
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextArea("Text", Model.Text, new {@class = "form-control", placeholder = "Wpisz treść komentarza", rows=4})
+                    @Html.ValidationMessageFor(model => model.Text, "", new {@class = "text-danger"})
+                </div>
+            </div>
 
-        @Html.HiddenFor(m => m.ItemId)
+            @Html.HiddenFor(m => m.ItemId)
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group col-md-12">
+                <div class="pull-left">
+                    <input type="submit" value="Dodaj" class="btn btn-default"/>
+                </div>
             </div>
         </div>
     </div>

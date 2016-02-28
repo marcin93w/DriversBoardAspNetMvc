@@ -14,6 +14,6 @@ namespace Driver.WebSite.Models
         public DateTime DateTime { set; get; }
         public int UpVotesCount { get; set; }
         public int DownVotesCount { get; set; }
-        public ICollection<CommentVote> CommentVotes { set; get; }
+        public ICollection<CommentVote> CommentVotes { set; get; } = new HashSet<CommentVote>();
     }
 }

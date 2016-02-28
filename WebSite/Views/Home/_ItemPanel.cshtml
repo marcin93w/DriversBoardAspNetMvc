@@ -22,38 +22,40 @@
                 @Model.Title
             }
         </h2>
-        <span class="text-muted"><small>@Model.AuthorLogin | @Model.DateAdded</small></span>
+        <span class="text-muted"><small>Dodał <strong>@Model.AuthorLogin</strong>, <span title="@Model.DateAdded">@Model.DateAddedString</span>.</small></span>
     </div>
     <div class="panel-body">
         <div class="player-container embed-responsive embed-responsive-16by9">
             <iframe id="ytplayer" class="player embed-responsive-item" type="text/html"
                     src="https://youtube.com/embed/@Model.ContentUrl?origin=http://example.com&enablejsapi=1"></iframe>
         </div>
-        <p>
+        <div class="item-infos">
+            <p>
+                @if (Model.GenerateLinksToItemPage)
+            {
+                    @Html.ActionLink(Model.Description, "ItemPage", new { Model.Id })
+                }
+                else
+                {
+                    @Model.Description
+                }
+            </p>
+            <table class="drivers table">
+                @foreach (var driver in @Model.Drivers)
+                {
+                    <tr>
+                        <td class="plate-col"><strong>@driver.Plate</strong></td>
+                        <td class="desc-col">@driver.Description</td>
+                        <td class="score-col"><span title="Liczba punktów karnych" class="driver-score"><strong class="text-danger">@driver.DownVotesCount</strong></span></td>
+                        <td class="vote-col"><a><span class="glyphicon glyphicon-plus text-danger" title="Dodaj punkt karny"></span></a></td>
+                    </tr>
+                }
+            </table>
+
             @if (Model.GenerateLinksToItemPage)
             {
-                @Html.ActionLink(Model.Description, "ItemPage", new { Model.Id })
+                <div class="read-more pull-right">@Html.ActionLink("Czytaj komentarze", "ItemPage", new { Model.Id }, new { @class = "btn btn-default" })</div>
             }
-            else
-            {
-                @Model.Description
-            }
-        </p>
-        <table class="drivers table">
-            @foreach (var driver in @Model.Drivers)
-            {
-                <tr>
-                    <td><a><span class="glyphicon glyphicon-plus text-danger"></span></a></td>
-                    <td><div class="driver-score"><strong class="text-danger">@driver.DownVotesCount</strong></div></td>
-                    <td><strong>@driver.Plate</strong></td>
-                    <td>@driver.Description</td>
-                </tr>
-            }
-        </table>
-
-        @if (Model.GenerateLinksToItemPage)
-        {
-            <div class="read-more">@Html.ActionLink("Czytaj komentarze", "ItemPage", new { Model.Id })</div>
-        }
+        </div>
     </div>
 </div>

@@ -1,24 +1,29 @@
 ﻿@model IEnumerable<Driver.WebSite.ViewModels.CommentViewModel>
 
-<div class="item-comments panel panel-default panel-body">
-    @foreach (var comment in Model)
-    {
-        <div class="comment panel panel-default">
-            <div class="panel-heading">
-                <div class="pull-left">@comment.AuthorLogin | @comment.DateTime</div>
-                <div class="pull-right">
-                    <div id="comment-rating-panel-@comment.Id" class="score-panel">
-                        <span data-bind="click: voteDown, css: { undo: isVotedDown() }, attr: { title: getTitleDown() }"
-                              class="vote glyphicon glyphicon-minus text-danger"></span>
-                        <span data-bind="text: rate, css: { 'text-success': isVotedUp(), 'text-danger': isVotedDown() }"
-                              class="score"></span>
-                        <span data-bind="click: voteUp, css: { undo: isVotedUp() }, attr: { title: getTitleUp() }"
-                              class="vote glyphicon glyphicon-plus text-success"></span>
+<div class="item-comments panel panel-default">
+    <div class="panel-heading">
+        <span class="panel-title">Komentarze</span>
+    </div>
+    <div class="panel-body">
+        @foreach (var comment in Model)
+        {
+            <div class="comment panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-left text-muted"><strong>@comment.AuthorLogin</strong> <span title="@comment.DateTime">@comment.ReadableDateTime</span></div>
+                    <div class="pull-right">
+                        <div id="comment-rating-panel-@comment.Id" class="score-panel">
+                            <span data-bind="click: voteDown, css: { undo: isVotedDown() }, attr: { title: getTitleDown() }"
+                                  class="vote glyphicon glyphicon-minus text-danger"></span>
+                            <span data-bind="text: rate, css: { 'text-success': isVotedUp(), 'text-danger': isVotedDown() }"
+                                  class="score"></span>
+                            <span data-bind="click: voteUp, css: { undo: isVotedUp() }, attr: { title: getTitleUp() }"
+                                  class="vote glyphicon glyphicon-plus text-success"></span>
+                        </div>
                     </div>
+                    <div style="clear: both"></div>
                 </div>
-                <div style="clear: both"></div>
+                <div class="panel-body">@comment.Text</div>
             </div>
-            <div class="panel-body">@comment.Text</div>
-        </div>
-    }
+        }
+    </div>
 </div>

@@ -37,5 +37,7 @@ namespace Driver.WebSite.DAL
         }
 
         public System.Data.Entity.DbSet<Driver.WebSite.Models.Comment> Comments { get; set; }
+
+        public System.Data.Entity.DbSet<Driver.WebSite.Models.DriverOccurrence> DriverOccurrences { get; set; }
     }
 }

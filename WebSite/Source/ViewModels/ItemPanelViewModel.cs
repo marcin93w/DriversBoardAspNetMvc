@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Driver.WebSite.Models;
+using Humanizer;
 
 namespace Driver.WebSite.ViewModels
 {
@@ -23,7 +24,9 @@ namespace Driver.WebSite.ViewModels
         public int UserVoting { get; set; } = 0;
         public string Description { get; set; }
         public DateTime DateAdded { set; get; }
-        public IEnumerable<ItemDriverViewModel> Drivers { set; get; } 
+        public string DateAddedString => DateAdded.Humanize();
+
+        public IEnumerable<DriverOccurrenceViewModel> Drivers { set; get; } 
 
         public bool GenerateLinksToItemPage { set; get; } = true;
     }

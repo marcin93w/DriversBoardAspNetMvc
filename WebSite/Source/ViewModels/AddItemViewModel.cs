@@ -11,8 +11,10 @@ namespace Driver.WebSite.ViewModels
 {
     public class AddItemViewModel : IValidatableObject
     {
-        private static readonly Regex YoutubeVideoRegex = 
+        private readonly Regex _youtubeVideoRegex = 
             new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
+
+        private const int MaxNumberOfDrivers = 50;
 
         [Required]
         [Display(Name = "Tytuł")]
@@ -24,7 +26,17 @@ namespace Driver.WebSite.ViewModels
         public string ContentUrl { set; get; }
         [Required]
         [Display(Name = "Krótki opis")]
-        public string Comment { get; set; }
+        public string Description { get; set; }
+
+        [Display(Name = "Kerowcy")]
+        public IList<AddDriverOccurrenceViewModel> Drivers { set; get; }
+
+        public AddItemViewModel()
+        {
+            Drivers = new List<AddDriverOccurrenceViewModel>(MaxNumberOfDrivers);
+            for(int i=0;i<MaxNumberOfDrivers;i++)
+                ((List<AddDriverOccurrenceViewModel>) Drivers).Add(new AddDriverOccurrenceViewModel());
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -39,7 +51,7 @@ namespace Driver.WebSite.ViewModels
 
         public void ProcessContentUrl()
         {
-            var match = YoutubeVideoRegex.Match(ContentUrl);
+            var match = _youtubeVideoRegex.Match(ContentUrl);
             if (match.Success)
             {
                 ContentUrl = match.Groups[1].Value;

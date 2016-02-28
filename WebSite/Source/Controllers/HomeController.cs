@@ -13,6 +13,9 @@ using Driver.WebSite.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ApplicationDbContext = Driver.WebSite.DAL.ApplicationDbContext;
+using Driver = Driver.WebSite.Models.Driver;
+
+//Signals Set graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
 
 namespace Driver.WebSite.Controllers
 {
@@ -55,6 +58,9 @@ namespace Driver.WebSite.Controllers
             var item = Mapper.Map<AddItemViewModel, Item>(addItemViewModel);
             item.Author = user;
             item.DateAdded = DateTime.Now;
+            item.DriversOccurrences = addItemViewModel.Drivers
+                .Where(viewModel => !string.IsNullOrEmpty(viewModel.Plate))
+                .Select(CreateDriverOccurrenceFromAddDriverViewModel).ToArray();
 
             _context.Items.Add(item);
 
@@ -79,13 +85,13 @@ namespace Driver.WebSite.Controllers
             viewModel.AuthorLogin = item.Author.UserName;
             bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
             viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
-            viewModel.Drivers = item.DriversOccurrences.Select(CreateItemDriverViewModel);
+            viewModel.Drivers = item.DriversOccurrences.Select(CreateDriverOccurrenceViewModel);
             return viewModel;
         }
 
-        private ItemDriverViewModel CreateItemDriverViewModel(DriverOccurrence driverOccurrence)
+        private DriverOccurrenceViewModel CreateDriverOccurrenceViewModel(DriverOccurrence driverOccurrence)
         {
-            return new ItemDriverViewModel
+            return new DriverOccurrenceViewModel
             {
                 Id = driverOccurrence.Driver.Id,
                 Plate = driverOccurrence.Driver.Plate,
@@ -93,6 +99,30 @@ namespace Driver.WebSite.Controllers
                 DownVotesCount = driverOccurrence.DownVotesCount,
                 StartSecond = driverOccurrence.StartSecond,
                 EndSecond = driverOccurrence.EndSecond
+            };
+        }
+
+        public DriverOccurrence CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
+        {
+            var driver = new Models.Driver
+            {
+                Plate = viewModel.Plate
+            };
+
+            if (viewModel.DriverId.HasValue)
+            {
+                driver.Id = viewModel.DriverId.Value;
+                _context.Set<Models.Driver>().Attach(driver);
+            }
+            else
+            {
+                driver.Description = viewModel.Description;
+            }
+
+            return new DriverOccurrence
+            {
+                Driver = driver,
+                Description = viewModel.Description,
             };
         }
 

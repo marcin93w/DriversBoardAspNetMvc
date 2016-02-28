@@ -1,6 +1,6 @@
 ﻿namespace Driver.WebSite.ViewModels
 {
-    public class ItemDriverViewModel
+    public class DriverOccurrenceViewModel
     {
         public int Id { set; get; }
         public string Plate { set; get; }

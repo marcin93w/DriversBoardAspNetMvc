@@ -7,7 +7,7 @@
 }
 
 @section scripts {
-    <script src="~/Scripts/driver.js"></script>
+    <script src="~/Scripts/RatingViewModel.js"></script>
     <script>
         ko.applyBindings(
             new ItemsVotingViewModel(@Model.ItemPanel.Id, @Model.ItemPanel.Rate, @Model.ItemPanel.UserVoting),
@@ -19,9 +19,9 @@
     </script>
 }
 
-<div class="breadcrumb">
+@*<div class="breadcrumb">
     @Html.ActionLink("Powrót do strony głównej", "Index")
-</div>
+</div>*@
 
 @if (Model.CommentAddingError)
 {
