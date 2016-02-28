@@ -25,6 +25,7 @@ namespace Driver.WebSite
 
             cfg.CreateMap<Vote<Item>, ItemVote>();
             cfg.CreateMap<Vote<Comment>, CommentVote>();
+            cfg.CreateMap<Vote<DriverOccurrence>, DriverOccurrenceVote>();
         }
     }
 }

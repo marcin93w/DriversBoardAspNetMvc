@@ -16,6 +16,13 @@
         {
             <text>ko.applyBindings(new CommentsVotingViewModel(@comment.Id, @comment.VotesCount, @comment.UserVote), $('#comment-rating-panel-@comment.Id')[0]);</text>
         }
+        @foreach (var driverOccurrence in Model.ItemPanel.DriverOccurrences)
+        {
+            <text>ko.applyBindings(
+                new DriverOccurrenceVotingViewModel(@driverOccurrence.Id, @driverOccurrence.Rate, @driverOccurrence.UserVote),
+                $('#driver-occurrence-@driverOccurrence.Id')[0]);
+            </text>
+        }
     </script>
 }
 

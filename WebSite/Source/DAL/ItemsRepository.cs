@@ -65,6 +65,10 @@ namespace Driver.WebSite.DAL
                     {
                         await LoadCommentsVotes(item, userId);
                     }
+                    if (item.DriversOccurrences != null && item.DriversOccurrences.Count > 0)
+                    {
+                        await LoadDriverOccurrenceVotes(item, userId);
+                    }
                 }
             }
 
@@ -84,6 +88,22 @@ namespace Driver.WebSite.DAL
             foreach (var comment in item.Comments)
             {
                 comment.CommentVotes = votes.Where(v => v.Votable.Id == comment.Id).ToArray();
+            }
+        }
+
+        private async Task LoadDriverOccurrenceVotes(Item item, string userId)
+        {
+            var votesQuery =
+                from driverOccurrenceVote in _context.Set<DriverOccurrenceVote>()
+                where driverOccurrenceVote.User.Id == userId
+                    && driverOccurrenceVote.Votable.Item.Id == item.Id
+                select driverOccurrenceVote;
+
+            var votes = await votesQuery.ToArrayAsync();
+
+            foreach (var driverOccurrence in item.DriversOccurrences)
+            {
+                driverOccurrence.Votes = votes.Where(v => v.Votable.Id == driverOccurrence.Id).ToArray();
             }
         }
     }

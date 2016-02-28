@@ -9,6 +9,14 @@
         @foreach (var item in Model.Items)
         {
             <text>ko.applyBindings(new ItemsVotingViewModel(@item.Id, @item.Rate, @item.UserVoting), $('#rating-panel-@item.Id')[0]);</text>
+
+            foreach (var driverOccurrence in @item.DriverOccurrences)
+            {
+                <text>ko.applyBindings(
+                    new DriverOccurrenceVotingViewModel(@driverOccurrence.Id, @driverOccurrence.Rate, @driverOccurrence.UserVote),
+                    $('#driver-occurrence-@driverOccurrence.Id')[0]);
+                </text>
+            }
         }
     </script>
 }

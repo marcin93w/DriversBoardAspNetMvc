@@ -15,7 +15,7 @@
         <h2 class="panel-title">
             @if (Model.GenerateLinksToItemPage)
             {
-                @Html.ActionLink(Model.Title, "ItemPage", new { Model.Id })
+                @Html.ActionLink(Model.Title, "ItemPage", new {Model.Id})
             }
             else
             {
@@ -32,8 +32,8 @@
         <div class="item-infos">
             <p>
                 @if (Model.GenerateLinksToItemPage)
-            {
-                    @Html.ActionLink(Model.Description, "ItemPage", new { Model.Id })
+                {
+                    @Html.ActionLink(Model.Description, "ItemPage", new {Model.Id})
                 }
                 else
                 {
@@ -41,20 +41,29 @@
                 }
             </p>
             <table class="drivers table">
-                @foreach (var driver in @Model.Drivers)
+                @foreach (var driverOccurrence in @Model.DriverOccurrences)
                 {
-                    <tr>
-                        <td class="plate-col"><strong>@driver.Plate</strong></td>
-                        <td class="desc-col">@driver.Description</td>
-                        <td class="score-col"><span title="Liczba punktów karnych" class="driver-score"><strong class="text-danger">@driver.DownVotesCount</strong></span></td>
-                        <td class="vote-col"><a><span class="glyphicon glyphicon-plus text-danger" title="Dodaj punkt karny"></span></a></td>
+                    <tr id="driver-occurrence-@driverOccurrence.Id">
+                        <td class="plate-col"><strong>@driverOccurrence.Plate</strong></td>
+                        <td class="desc-col">@driverOccurrence.Description</td>
+                        <td class="score-col">
+                            <strong class="text-danger">
+                                <span data-bind="text: downRate" title="Liczba punktów karnych" class="driver-score">
+                                </span>
+                            </strong>
+                        </td>
+                        <td class="vote-col">
+                            <a data-bind="click: voteDown, css: { 'text-danger': isNoVote() }, attr: { title: getTitleDown() }" 
+                               class="glyphicon glyphicon-plus ">
+                            </a>
+                        </td>
                     </tr>
                 }
             </table>
 
             @if (Model.GenerateLinksToItemPage)
             {
-                <div class="read-more pull-right">@Html.ActionLink("Czytaj komentarze", "ItemPage", new { Model.Id }, new { @class = "btn btn-default" })</div>
+                <div class="read-more pull-right">@Html.ActionLink("Czytaj komentarze", "ItemPage", new {Model.Id}, new {@class = "btn btn-default"})</div>
             }
         </div>
     </div>

@@ -19,5 +19,7 @@ namespace Driver.WebSite.Models
 
         public int UpVotesCount { get; set; }
         public int DownVotesCount { get; set; }
+
+        public ICollection<DriverOccurrenceVote> Votes { set; get; } = new HashSet<DriverOccurrenceVote>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Driver.WebSite.DAL;
@@ -18,6 +19,29 @@ namespace Driver.WebSite.Controllers
     {
         public CommentsRatingController(IVotesRepository<Comment> votesRepository)
             : base(votesRepository) { }
+    }
+
+    [Authorize]
+    public class DriverOccurrenceRatingController : RatingController<DriverOccurrence>
+    {
+        public DriverOccurrenceRatingController(IVotesRepository<DriverOccurrence> votesRepository)
+            : base(votesRepository)
+        { }
+
+        public override Task<int?> ChangeRateToUp(int id)
+        {
+            throw new NotSupportedException("Drivers can only be rated down");
+        }
+
+        public override Task<int?> RateUp(int id)
+        {
+            throw new NotSupportedException("Drivers can only be rated down");
+        }
+
+        public override Task<int?> ClearRatingUp(int id)
+        {
+            throw new NotSupportedException("Drivers can only be rated down");
+        }
     }
 
     [Authorize]
@@ -50,13 +74,13 @@ namespace Driver.WebSite.Controllers
         }
 
         [HttpGet]
-        public async Task<int?> RateUp(int id)
+        public virtual async Task<int?> RateUp(int id)
         {
             return await Rate(id, true);
         }
 
         [HttpGet]
-        public async Task<int?> RateDown(int id)
+        public virtual async Task<int?> RateDown(int id)
         {
             return await Rate(id, false);
         }
@@ -78,13 +102,13 @@ namespace Driver.WebSite.Controllers
         }
 
         [HttpGet]
-        public async Task<int?> ClearRatingUp(int id)
+        public virtual async Task<int?> ClearRatingUp(int id)
         {
             return await ClearRating(id, true);
         }
 
         [HttpGet]
-        public async Task<int?> ClearRatingDown(int id)
+        public virtual async Task<int?> ClearRatingDown(int id)
         {
             return await ClearRating(id, false);
         }
@@ -105,13 +129,13 @@ namespace Driver.WebSite.Controllers
         }
 
         [HttpGet]
-        public async Task<int?> ChangeRateToUp(int id)
+        public virtual async Task<int?> ChangeRateToUp(int id)
         {
             return await ChangeRating(id, true);
         }
 
         [HttpGet]
-        public async Task<int?> ChangeRateToDown(int id)
+        public virtual async Task<int?> ChangeRateToDown(int id)
         {
             return await ChangeRating(id, false);
         }

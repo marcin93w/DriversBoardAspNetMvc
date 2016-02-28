@@ -237,6 +237,7 @@
     <Compile Include="Source\Controllers\HomeController.cs" />
     <Compile Include="Source\Controllers\RatingController.cs" />
     <Compile Include="Source\Controllers\ManageController.cs" />
+    <Compile Include="Source\DAL\DriverOccurenceVotesRepository.cs" />
     <Compile Include="Source\DAL\CommentVotesRepository.cs" />
     <Compile Include="Source\DAL\IItemsRepository.cs" />
     <Compile Include="Source\DAL\ItemsRepository.cs" />
@@ -254,7 +255,6 @@
     <Compile Include="Source\Models\IVotable.cs" />
     <Compile Include="Source\Models\Item.cs" />
     <Compile Include="Source\Models\ItemContentType.cs" />
-    <Compile Include="Source\Models\ItemVote.cs" />
     <Compile Include="Source\Models\Vote.cs" />
     <Compile Include="Source\ViewModels\AccountViewModels.cs" />
     <Compile Include="Source\Models\Comment.cs" />
@@ -275,10 +275,6 @@
     <Content Include="Resources\Styles\bootstrap-theme.min.css" />
     <Content Include="Resources\Styles\bootstrap.css" />
     <Content Include="Resources\Styles\bootstrap.min.css" />
-    <Content Include="Resources\Scripts\moment-with-locales.js" />
-    <Content Include="Resources\Scripts\moment-with-locales.min.js" />
-    <Content Include="Resources\Scripts\moment.js" />
-    <Content Include="Resources\Scripts\moment.min.js" />
     <Content Include="Styles\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>

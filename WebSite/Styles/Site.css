@@ -60,6 +60,8 @@
       background-color: #333; }
       body .panel .panel-body p, body .panel .panel-body a {
         color: #b0b0b0; }
+      body .panel .panel-body .text-danger {
+        color: #a94442; }
   body .item-panel .panel-heading .score-panel {
     font-size: 20px; }
   body .item-panel .player-container {
@@ -81,6 +83,8 @@
         font-size: large; }
     body .item-panel .divers .vote-col, body .item-panel .table .vote-col {
       width: 20px; }
+      body .item-panel .divers .vote-col a:hover, body .item-panel .table .vote-col a:hover {
+        cursor: pointer; }
       body .item-panel .divers .vote-col span, body .item-panel .table .vote-col span {
         vertical-align: middle; }
   body .item-panel .panel-body p {

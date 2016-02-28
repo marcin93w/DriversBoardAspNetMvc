@@ -17,11 +17,8 @@ var VotingViewModel = (function () {
     VotingViewModel.prototype.isVotedDown = function () {
         return this.currentUserVote() < 0;
     };
-    VotingViewModel.prototype.getTitleUp = function () {
-        return this.isVotedUp() ? 'Cofnij głos' : 'Mocne';
-    };
-    VotingViewModel.prototype.getTitleDown = function () {
-        return this.isVotedDown() ? 'Cofnij głos' : 'Nie nadaje się';
+    VotingViewModel.prototype.isNoVote = function () {
+        return this.currentUserVote() === 0;
     };
     VotingViewModel.prototype.voteUp = function () {
         var _this = this;
@@ -94,6 +91,12 @@ var ItemsVotingViewModel = (function (_super) {
     ItemsVotingViewModel.prototype.getControllerName = function () {
         return 'itemsrating';
     };
+    ItemsVotingViewModel.prototype.getTitleUp = function () {
+        return this.isVotedUp() ? 'Cofnij głos' : 'Mocne';
+    };
+    ItemsVotingViewModel.prototype.getTitleDown = function () {
+        return this.isVotedDown() ? 'Cofnij głos' : 'Nie nadaje się';
+    };
     return ItemsVotingViewModel;
 })(VotingViewModel);
 var CommentsVotingViewModel = (function (_super) {
@@ -104,6 +107,28 @@ var CommentsVotingViewModel = (function (_super) {
     CommentsVotingViewModel.prototype.getControllerName = function () {
         return 'commentsrating';
     };
+    CommentsVotingViewModel.prototype.getTitleUp = function () {
+        return this.isVotedUp() ? 'Cofnij głos' : 'Plus';
+    };
+    CommentsVotingViewModel.prototype.getTitleDown = function () {
+        return this.isVotedDown() ? 'Cofnij głos' : 'Minus';
+    };
     return CommentsVotingViewModel;
 })(VotingViewModel);
-//# sourceMappingURL=RatingViewModel.js.map
+var DriverOccurrenceVotingViewModel = (function (_super) {
+    __extends(DriverOccurrenceVotingViewModel, _super);
+    function DriverOccurrenceVotingViewModel() {
+        var _this = this;
+        _super.apply(this, arguments);
+        this.downRate = ko.computed(function () {
+            return -_this.rate();
+        }, this);
+    }
+    DriverOccurrenceVotingViewModel.prototype.getControllerName = function () {
+        return 'DriverOccurrenceRating';
+    };
+    DriverOccurrenceVotingViewModel.prototype.getTitleDown = function () {
+        return this.isVotedDown() ? 'Cofnij punkt karny' : 'Dodaj punkt karny';
+    };
+    return DriverOccurrenceVotingViewModel;
+})(VotingViewModel);

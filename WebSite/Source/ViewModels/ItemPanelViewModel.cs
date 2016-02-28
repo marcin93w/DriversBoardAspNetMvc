@@ -26,7 +26,7 @@ namespace Driver.WebSite.ViewModels
         public DateTime DateAdded { set; get; }
         public string DateAddedString => DateAdded.Humanize();
 
-        public IEnumerable<DriverOccurrenceViewModel> Drivers { set; get; } 
+        public IEnumerable<DriverOccurrenceViewModel> DriverOccurrences { set; get; } 
 
         public bool GenerateLinksToItemPage { set; get; } = true;
     }

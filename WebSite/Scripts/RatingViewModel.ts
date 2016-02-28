@@ -24,12 +24,8 @@ abstract class VotingViewModel {
         return this.currentUserVote() < 0;
     }
 
-    getTitleUp(): string {
-        return this.isVotedUp() ? 'Cofnij głos' : 'Mocne';
-    }
-
-    getTitleDown(): string {
-        return this.isVotedDown() ? 'Cofnij głos' : 'Nie nadaje się';
+    isNoVote(): boolean {
+        return this.currentUserVote() === 0;
     }
 
     voteUp() {
@@ -98,10 +94,40 @@ class ItemsVotingViewModel extends VotingViewModel {
     getControllerName(): string {
         return 'itemsrating';
     }
+
+    getTitleUp(): string {
+        return this.isVotedUp() ? 'Cofnij głos' : 'Mocne';
+    }
+
+    getTitleDown(): string {
+        return this.isVotedDown() ? 'Cofnij głos' : 'Nie nadaje się';
+    }
 }
 
 class CommentsVotingViewModel extends VotingViewModel {
     getControllerName(): string {
         return 'commentsrating';
     }
+
+    getTitleUp(): string {
+        return this.isVotedUp() ? 'Cofnij głos' : 'Plus';
+    }
+
+    getTitleDown(): string {
+        return this.isVotedDown() ? 'Cofnij głos' : 'Minus';
+    }
+}
+
+class DriverOccurrenceVotingViewModel extends VotingViewModel {
+    getControllerName(): string {
+        return 'DriverOccurrenceRating';
+    }
+
+    getTitleDown(): string {
+        return this.isVotedDown() ? 'Cofnij punkt karny' : 'Dodaj punkt karny';
+    }
+
+    downRate = ko.computed(() => {
+        return - this.rate();
+    }, this);
 }

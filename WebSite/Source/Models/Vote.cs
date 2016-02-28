@@ -11,6 +11,7 @@ namespace Driver.WebSite.Models
 {
     public class ItemVote : Vote<Item> { }
     public class CommentVote : Vote<Comment> { }
+    public class DriverOccurrenceVote : Vote<DriverOccurrence> { }
 
     public class Vote<T> where T : IVotable
     {
