@@ -132,3 +132,4 @@ var DriverOccurrenceVotingViewModel = (function (_super) {
     };
     return DriverOccurrenceVotingViewModel;
 })(VotingViewModel);
+//# sourceMappingURL=RatingViewModel.js.map

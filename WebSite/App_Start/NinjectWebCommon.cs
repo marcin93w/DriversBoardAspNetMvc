@@ -66,9 +66,10 @@ namespace Driver.WebSite
         {
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
             kernel.Bind<IItemsRepository>().To<ItemsRepository>().InRequestScope();
-            kernel.Bind<IVotesRepository<Item>>().To<ItemVotesRepository>();
-            kernel.Bind<IVotesRepository<Comment>>().To<CommentVotesRepository>();
-            kernel.Bind<IVotesRepository<DriverOccurrence>>().To<DriverOccurenceVotesRepository>();
+            kernel.Bind<IDriversRepository>().To<DriversRepository>().InRequestScope();
+            kernel.Bind<IVotesRepository<Item>>().To<ItemVotesRepository>().InRequestScope();
+            kernel.Bind<IVotesRepository<Comment>>().To<CommentVotesRepository>().InRequestScope();
+            kernel.Bind<IVotesRepository<DriverOccurrence>>().To<DriverOccurenceVotesRepository>().InRequestScope();
         }        
     }
 }

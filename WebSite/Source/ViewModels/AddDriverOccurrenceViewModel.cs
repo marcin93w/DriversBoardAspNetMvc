@@ -7,9 +7,6 @@ namespace Driver.WebSite.ViewModels
 {
     public class AddDriverOccurrenceViewModel
     {
-        [HiddenInput]
-        [Display(Name = "")]
-        public int? DriverId { set; get; } //if driver already exsist in system
         [Display(Name = "Tablica rejestracyjna")]
         public string Plate { set; get; }
         [Display(Name = "Opis samochodu")]

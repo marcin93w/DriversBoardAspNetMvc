@@ -11,5 +11,8 @@ namespace Driver.WebSite.DAL
     {
         Task<IEnumerable<Item>> GetAllItems(string userId);
         Task<Item> GetItem(int itemId, string userId);
+
+        Task<int> AddItem(Item item);
+        Task<int> AddComment(Comment comment);
     }
 }

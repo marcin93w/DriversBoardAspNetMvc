@@ -16,6 +16,7 @@ namespace Driver.WebSite.DAL
         public ItemsRepository(ApplicationDbContext context)
         {
             _context = context;
+            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public async Task<IEnumerable<Item>> GetAllItems(string userId)
@@ -105,6 +106,29 @@ namespace Driver.WebSite.DAL
             {
                 driverOccurrence.Votes = votes.Where(v => v.Votable.Id == driverOccurrence.Id).ToArray();
             }
+        }
+
+        public async Task<int> AddItem(Item item)
+        {
+            _context.Set<ApplicationUser>().Attach(item.Author);
+
+            var alreadyExistingDrivers = item.DriversOccurrences
+                .Select(driverOccurrence => driverOccurrence.Driver)
+                .Where(driver => driver.Id != default(int));
+            foreach (var driver in alreadyExistingDrivers)
+            {
+                _context.Set<Models.Driver>().Attach(driver);
+            }
+
+            _context.Items.Add(item);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> AddComment(Comment comment)
+        {
+            _context.Set<ApplicationUser>().Attach(comment.User);
+            _context.Comments.Add(comment);
+            return await _context.SaveChangesAsync();
         }
     }
 }

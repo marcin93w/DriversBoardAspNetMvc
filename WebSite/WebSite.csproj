@@ -239,6 +239,8 @@
     <Compile Include="Source\Controllers\ManageController.cs" />
     <Compile Include="Source\DAL\DriverOccurenceVotesRepository.cs" />
     <Compile Include="Source\DAL\CommentVotesRepository.cs" />
+    <Compile Include="Source\DAL\DriversRepository.cs" />
+    <Compile Include="Source\DAL\IDriversRepository.cs" />
     <Compile Include="Source\DAL\IItemsRepository.cs" />
     <Compile Include="Source\DAL\ItemsRepository.cs" />
     <Compile Include="Global.asax.cs">

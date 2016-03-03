@@ -22,14 +22,13 @@ namespace Driver.WebSite.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context; //TODO should be deleted
         private readonly IItemsRepository _itemsRepository;
+        private readonly IDriversRepository _driversRepository;
 
-        public HomeController(ApplicationDbContext context, IItemsRepository itemsRepository)
+        public HomeController(IItemsRepository itemsRepository, IDriversRepository driversRepository)
         {
-            _context = context;
             _itemsRepository = itemsRepository;
-            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            _driversRepository = driversRepository;
         }
 
         [AllowAnonymous]
@@ -51,20 +50,20 @@ namespace Driver.WebSite.Controllers
                 return View("AddItem", addItemViewModel);
             }
 
-            var store = new UserStore<ApplicationUser>(_context);
-            var userManager = new UserManager<ApplicationUser>(store);
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-
             var item = Mapper.Map<AddItemViewModel, Item>(addItemViewModel);
-            item.Author = user;
+            item.Author = new ApplicationUser { Id = this.GetCurrentUserId() };
             item.DateAdded = DateTime.Now;
-            item.DriversOccurrences = addItemViewModel.Drivers
-                .Where(viewModel => !string.IsNullOrEmpty(viewModel.Plate))
-                .Select(CreateDriverOccurrenceFromAddDriverViewModel).ToArray();
 
-            _context.Items.Add(item);
+            var driverOccurrencesAddViewModels = addItemViewModel.Drivers
+                .Where(viewModel => !string.IsNullOrEmpty(viewModel.Plate));
+            var driverOccurences = new List<DriverOccurrence>();
+            foreach (var driverOccurrenceVm in driverOccurrencesAddViewModels)
+            {
+                driverOccurences.Add(await CreateDriverOccurrenceFromAddDriverViewModel(driverOccurrenceVm));
+            }
+            item.DriversOccurrences = driverOccurences;
 
-            await _context.SaveChangesAsync();
+            await _itemsRepository.AddItem(item);
 
             return View("Index", new HomeViewModel(await GetAllItemsFromRepositoryAndConvertThemToViewModels()) { DisplayAddedInfo = true });
         }
@@ -95,7 +94,7 @@ namespace Driver.WebSite.Controllers
             {
                 Id = driverOccurrence.Id,
                 DriverId = driverOccurrence.Driver.Id,
-                Plate = driverOccurrence.Driver.Plate,
+                Plate = FormatPlateDisplay(driverOccurrence.Driver.Plate),
                 Description = driverOccurrence.Description ?? driverOccurrence.Driver.Description,
                 DownVotesCount = driverOccurrence.DownVotesCount,
                 StartSecond = driverOccurrence.StartSecond,
@@ -108,22 +107,21 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        public DriverOccurrence CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
+        private string FormatPlateDisplay(string plate)
         {
-            var driver = new Models.Driver
-            {
-                Plate = viewModel.Plate
-            };
+            plate = plate.Replace(" ", string.Empty);
+            var indexToInsertSpace = char.IsLetter(plate[2]) ? 3 : 2;
+            return plate.Insert(indexToInsertSpace, " ");
+        }
 
-            if (viewModel.DriverId.HasValue)
-            {
-                driver.Id = viewModel.DriverId.Value;
-                _context.Set<Models.Driver>().Attach(driver);
-            }
-            else
-            {
-                driver.Description = viewModel.Description;
-            }
+        public async Task<DriverOccurrence> CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
+        {
+            var driver = await _driversRepository.FindDriverByPlate(viewModel.Plate) ?? 
+                new Models.Driver
+                {
+                    Plate = viewModel.Plate,
+                    Description = viewModel.Description
+                };
 
             return new DriverOccurrence
             {
@@ -149,26 +147,22 @@ namespace Driver.WebSite.Controllers
         [HttpPost]
         public async Task<ActionResult> AddComment(AddCommentViewModel addCommentViewModel)
         {
-            var user = await this.GetCurrentUserAsync(_context);
-            var item = await _itemsRepository.GetItem(addCommentViewModel.ItemId, user.Id);
+            var item = await _itemsRepository.GetItem(addCommentViewModel.ItemId, this.GetCurrentUserId());
 
             var comment = new Comment
             {
                 Item = item,
                 Text = addCommentViewModel.Text,
-                User = user,
+                User = new ApplicationUser { Id = this.GetCurrentUserId() },
                 DateTime = DateTime.Now
             };
 
-            _context.Comments.Add(comment);
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _itemsRepository.AddComment(comment);
             }
             catch (Exception ex)
             {
-                _context.Comments.Remove(comment);
                 return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel), ex));
             }
 
