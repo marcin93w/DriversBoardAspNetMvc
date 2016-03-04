@@ -4,7 +4,6 @@
 
 body {
   padding-top: 50px;
-  padding-bottom: 20px;
   background-color: #333;
   color: #b0b0b0;
   /* Set padding to keep content from hitting the edges */
@@ -12,7 +11,7 @@ body {
        will truncate terms that are too long to fit in the left column 
     */
   /* Set width on the form input elements since they're 100% wide by default */ }
-  body .body-content {
+  body .body-content, body footer {
     padding-left: 15px;
     padding-right: 15px; }
   body .btn-default {
@@ -99,7 +98,8 @@ body {
     body .item-panel .divers .vote-col, body .item-panel .table .vote-col {
       width: 20px; }
       body .item-panel .divers .vote-col a:hover, body .item-panel .table .vote-col a:hover {
-        cursor: pointer; }
+        cursor: pointer;
+        text-decoration: none; }
       body .item-panel .divers .vote-col span, body .item-panel .table .vote-col span {
         vertical-align: middle; }
   body .item-panel .panel-body p {
@@ -128,5 +128,8 @@ body {
           body .add-item-container .drivers-form .driver-form .editor-field:nth-child(4) input {
             max-width: 400px; } }
   body footer {
+    background-color: #222;
+    padding: 40px;
+    border-top: 1px solid black;
     clear: both; }
 

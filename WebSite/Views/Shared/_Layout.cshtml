@@ -30,10 +30,12 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <footer>
-            <p>&copy; @DateTime.Now.Year - antykierowcy.pl</p>
-        </footer>
     </div>
+    <footer>
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - antykierowcy.pl</p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
