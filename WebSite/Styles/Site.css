@@ -108,6 +108,25 @@ body {
     font-size: 16px; }
   body .add-item-container .validation-summary-errors ul {
     list-style: none; }
+  body .add-item-container textarea {
+    max-width: 600px; }
+  body .add-item-container .add-driver a {
+    color: #b0b0b0; }
+    body .add-item-container .add-driver a:hover {
+      cursor: pointer; }
+  body .add-item-container .drivers-form {
+    padding-left: 15px;
+    display: table; }
+    body .add-item-container .drivers-form .driver-form {
+      display: block;
+      margin: 20px 0; }
+      body .add-item-container .drivers-form .driver-form .editor-field:nth-child(2) {
+        max-width: 150px; }
+      @media screen and (min-width: 450px) {
+        body .add-item-container .drivers-form .driver-form .editor-field:nth-child(4) {
+          width: 400px; }
+          body .add-item-container .drivers-form .driver-form .editor-field:nth-child(4) input {
+            max-width: 400px; } }
   body footer {
     clear: both; }
 

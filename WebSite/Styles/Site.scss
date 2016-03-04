@@ -177,6 +177,39 @@ body {
                 list-style: none;
             }
         }
+        textarea {
+            max-width: 600px;
+        }
+
+        .add-driver {
+            a {
+                color: $font-default;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .drivers-form {
+            padding-left: 15px;
+            display: table;
+            .driver-form {
+                display: block;
+                margin: 20px 0;
+                .editor-field:nth-child(2) {
+                    max-width:150px;
+                }
+                @media screen and (min-width: 450px) {
+                    .editor-field:nth-child(4) {
+                        width:400px;
+                        input {
+                            max-width: 400px;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     footer {

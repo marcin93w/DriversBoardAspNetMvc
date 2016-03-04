@@ -22,18 +22,18 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ContentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ContentUrl, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ContentUrl, "", new { @class = "text-danger" })
+                    @Html.TextArea("Description", Model.Description, new { @class = "form-control", rows = 4 })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ContentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ContentUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContentUrl, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -43,18 +43,18 @@
                     @for (int i = 0; i < Model.Drivers.Count; i++)
                     {
                         <div class="driver-form @if (i > 0) { <text>hidden</text> } ">
-                            @Html.EditorFor(m => m.Drivers[i], "_AddDriver")
+                            @Html.EditorFor(m => m.Drivers[i], new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     }
-                </div>
-                <div class="add-driver">
-                    <a id="addDriver">Dodaj kierowcę</a>
+                    <div class="add-driver">
+                        <a id="addDriver">Dodaj następnego kierowcę</a>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Dodaj" class="btn btn-default" />
                 </div>
             </div>
         </div>
@@ -62,14 +62,10 @@
 
 </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $('#addDriver').click(function() {
+        $('#addDriver').click(function () {
             $(".drivers-form .hidden").first().removeClass('hidden');
             if (!$(".drivers-form .hidden")[0]) {
                 $('#addDriver').hide();

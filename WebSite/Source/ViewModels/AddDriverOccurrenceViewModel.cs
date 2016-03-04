@@ -8,6 +8,7 @@ namespace Driver.WebSite.ViewModels
     public class AddDriverOccurrenceViewModel
     {
         [Display(Name = "Tablica rejestracyjna")]
+        [MaxLength(9)]
         public string Plate { set; get; }
         [Display(Name = "Opis samochodu")]
         public string Description { set; get; }
