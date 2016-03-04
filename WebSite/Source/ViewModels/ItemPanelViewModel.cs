@@ -24,7 +24,7 @@ namespace Driver.WebSite.ViewModels
         public int UserVoting { get; set; } = 0;
         public string Description { get; set; }
         public DateTime DateAdded { set; get; }
-        public string DateAddedString => DateAdded.Humanize();
+        public string DateAddedString => DateAdded.Humanize(false);
 
         public IEnumerable<DriverOccurrenceViewModel> DriverOccurrences { set; get; } 
 

@@ -15,7 +15,7 @@ namespace Driver.WebSite.ViewModels
         public Item Item { set; get; }
         public string Text { set; get; }
         public DateTime DateTime { set; get; }
-        public string ReadableDateTime => DateTime.Humanize();
+        public string ReadableDateTime => DateTime.Humanize(false);
         public int VotesCount { set; get; }
         public int UserVote { set; get; }
     }
