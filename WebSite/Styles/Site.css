@@ -1,4 +1,8 @@
-﻿body {
+﻿@font-face {
+  font-family: Lobster_13;
+  src: url("../Resources/fonts/Lobster_1.3.otf") format("opentype"), url("../Resources/fonts/Lobster_1.3.eot") format("embedded-opentype"), url("../Resources/fonts/Lobster_1.3.ttf") format("truetype"); }
+
+body {
   padding-top: 50px;
   padding-bottom: 20px;
   background-color: #333;
@@ -19,10 +23,21 @@
       background-color: black;
       color: #b0b0b0;
       border-color: #333; }
-  body .navbar .navbar-logo img {
-    height: 40px;
+  body .navbar .navbar-logo {
+    display: block;
     margin: 5px;
     margin-right: 30px; }
+    body .navbar .navbar-logo .title-logo {
+      line-height: 40px;
+      background: url(../Resources/images/driver.png) center left no-repeat;
+      padding: 6px 0;
+      padding-left: 45px;
+      font-size: 28px;
+      font-weight: bold;
+      font-family: Lobster, Lobster_13;
+      color: #a94242; }
+    body .navbar .navbar-logo:hover {
+      text-decoration: none; }
   body .navbar .navbar-nav > li > a:hover, body .navbar .navbar-nav > li > a:focus {
     color: #a94242; }
   body .dl-horizontal dt {

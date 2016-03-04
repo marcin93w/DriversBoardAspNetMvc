@@ -10,13 +10,8 @@ using AutoMapper;
 using Driver.WebSite.DAL;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using ApplicationDbContext = Driver.WebSite.DAL.ApplicationDbContext;
-using Driver = Driver.WebSite.Models.Driver;
 
-//Signals Set graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
-
+//<div>Icons made by<a href="http://www.freepik.com" title="Freepik"> Freepik</a> from<a href="http://www.flaticon.com" title="Flaticon"> www.flaticon.com</a> is licensed by <a href = "http://creativecommons.org/licenses/by/3.0/" title= "Creative Commons BY 3.0" target= "_blank" > CC 3.0 BY</a></div>
 namespace Driver.WebSite.Controllers
 {
     [Authorize]
