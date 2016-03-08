@@ -5,7 +5,7 @@ namespace Driver.WebSite.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -25,15 +25,15 @@ namespace Driver.WebSite.ViewModels
 
     public class VerifyCodeViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         public string Provider { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Zapamiętaj przeglądarkę")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -41,65 +41,65 @@ namespace Driver.WebSite.ViewModels
 
     public class ForgotViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Login")]
         public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Zapamiętaj mnie")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole login jest wymagane.")]
         [Display(Name = "Login")]
         public string Login { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Pole Email jest wymagane.")]
+        [EmailAddress(ErrorMessage = "Wprowadzony adres e-mail nie jest prawidłowy.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        [Required(ErrorMessage = "Pole hasło jest wymagane.")]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków długości.", MinimumLength = 3)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Potwierdź hasło")]
+        [Compare("Password", ErrorMessage = "Hasło nie jest identyczne z potwierdzonym hasłem.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Pole wymagane")]
+        [EmailAddress(ErrorMessage = "Wprowadzony adres e-mail nie jest prawidłowy.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        [Required(ErrorMessage = "Pole wymagane")]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków długości.", MinimumLength = 3)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Potwierdź hasło")]
+        [Compare("Password", ErrorMessage = "Hasło nie jest identyczne z potwierdzonym hasłem.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -107,8 +107,8 @@ namespace Driver.WebSite.ViewModels
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Pole wymagane")]
+        [EmailAddress(ErrorMessage = "Wprowadzony adres e-mail nie jest prawidłowy.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

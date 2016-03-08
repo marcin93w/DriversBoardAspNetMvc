@@ -6,10 +6,10 @@ namespace Driver.WebSite.ViewModels
 {
     public class AddCommentViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [HiddenInput]
         public int ItemId { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Treść komentarza")]
         public string Text { get; set; }
     }

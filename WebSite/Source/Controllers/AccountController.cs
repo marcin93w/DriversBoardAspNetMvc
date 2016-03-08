@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -87,7 +88,7 @@ namespace Driver.WebSite.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Nieporawny login lub hasło.");
                     return View(model);
             }
         }
@@ -440,7 +441,34 @@ namespace Driver.WebSite.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                string localizedError = null;
+                if (error == "The Email field is not a valid e-mail address.")
+                {
+                    localizedError = "Wprowadzony adres e-mail nie jest prawidłowy.";
+                }
+                else
+                {
+                    var nameRegex = new Regex("Name (.*) is already taken.");
+                    var nameMatch = nameRegex.Match(error);
+                    if (nameMatch.Success)
+                    {
+                        localizedError = $"Użytkownik {nameMatch.Groups[1]} już istnieje";
+                    }
+
+                    var mailRegex = new Regex("Email \'(.*)\' is already taken.");
+                    var mailMatch = mailRegex.Match(error);
+                    if (mailMatch.Success)
+                    {
+                        localizedError = $"Email {mailMatch.Groups[1]} jest już zarejestrowany w systemie";
+                    }
+                }
+
+                if (localizedError == null)
+                {
+                    localizedError = $"Wystąpił błąd ({error})";
+                }
+
+                ModelState.AddModelError("", localizedError);
             }
         }
 

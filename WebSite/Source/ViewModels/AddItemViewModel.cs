@@ -16,15 +16,15 @@ namespace Driver.WebSite.ViewModels
 
         private const int MaxNumberOfDrivers = 50;
 
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Tytuł")]
         public string Title { set; get; }
         public ItemContentType ContentType { private set; get; }
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [DataType(DataType.Url)]
         [Display(Name = "Link")]
         public string ContentUrl { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Krótki opis")]
         public string Description { get; set; }
 
