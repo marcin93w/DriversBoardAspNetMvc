@@ -30,5 +30,7 @@ namespace Driver.WebSite.ViewModels
         public CommentViewModel AddedComment { get; }
 
         public bool CommentAddingError { get; }
+
+        public SidebarViewModel Sidebar { set; get; }
     }
 }

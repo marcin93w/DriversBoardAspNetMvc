@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ninject.Infrastructure.Language;
 
 namespace Driver.WebSite.DAL
 {
@@ -23,6 +24,13 @@ namespace Driver.WebSite.DAL
                 select row.Driver;
 
             return (await query.ToArrayAsync()).FirstOrDefault();
-        } 
+        }
+
+        public async Task<IEnumerable<Models.Driver>> GetMostDownvotedDrivers(int limit)
+        {
+            return await (from row in _context.Set<Models.Driver>()
+                    orderby row.DownVotesCount descending 
+                    select row).Take(limit).ToArrayAsync();
+        }
     }
 }

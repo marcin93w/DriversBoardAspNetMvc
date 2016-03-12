@@ -8,12 +8,8 @@ namespace Driver.WebSite.ViewModels
 {
     public class HomeViewModel
     {
-        public HomeViewModel(IEnumerable<ItemPanelViewModel> items)
-        {
-            Items = items;
-        }
-
-        public IEnumerable<ItemPanelViewModel> Items { get; }
+        public IEnumerable<ItemPanelViewModel> Items { get; set; }
         public bool DisplayAddedInfo { get; set; }
+        public SidebarViewModel Sidebar { set; get; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Driver.WebSite.Models
 {
-    public class Driver : IVotable
+    public class Driver
     {
         [Key]
         public int Id { set; get; }

@@ -1,0 +1,21 @@
+﻿@model Driver.WebSite.ViewModels.DriversRankingViewModel
+
+<div class="panel drivers-ranking">
+    <div class="panel-heading">
+        <h4>Najgorsi kierowcy</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table-striped">
+            @foreach (var driver in Model.Drivers)
+            {
+                <tr class="ranking-driver">
+                    <td class="score">@driver.DownVotesCount</td>
+                    <td>
+                        <div class="plate">@driver.Plate</div>
+                        <div class="description">@driver.Description</div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

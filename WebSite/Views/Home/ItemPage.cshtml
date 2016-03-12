@@ -1,5 +1,4 @@
-﻿@using Driver.WebSite.Models
-@using Driver.WebSite.ViewModels
+﻿@using Driver.WebSite.ViewModels
 @model ItemPageViewModel
 
 @{
@@ -26,10 +25,6 @@
     </script>
 }
 
-@*<div class="breadcrumb">
-    @Html.ActionLink("Powrót do strony głównej", "Index")
-</div>*@
-
 @if (Model.CommentAddingError)
 {
     <div class="comment-adding-error alert alert-danger alert-dismissable" role="alert">
@@ -46,6 +41,6 @@
     @Html.Partial("_AddComment", new AddCommentViewModel { ItemId = Model.ItemPanel.Id })
 </div>
 <div class="col-md-4">
-    @Html.Partial("_SidebarPanel")
+    @Html.Partial("_SidebarPanel", Model.Sidebar)
 </div>
 

@@ -11,12 +11,13 @@ using Driver.WebSite.DAL;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 
-//<div>Icons made by<a href="http://www.freepik.com" title="Freepik"> Freepik</a> from<a href="http://www.flaticon.com" title="Flaticon"> www.flaticon.com</a> is licensed by <a href = "http://creativecommons.org/licenses/by/3.0/" title= "Creative Commons BY 3.0" target= "_blank" > CC 3.0 BY</a></div>
 namespace Driver.WebSite.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        private const int SidebarDriversRankingCount = 5;
+
         private readonly IItemsRepository _itemsRepository;
         private readonly IDriversRepository _driversRepository;
 
@@ -29,7 +30,7 @@ namespace Driver.WebSite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
-            return View(new HomeViewModel(await GetAllItemsFromRepositoryAndConvertThemToViewModels()));
+            return View(await PrepareHomeViewModel());
         }
 
         public ActionResult AddItem()
@@ -60,12 +61,10 @@ namespace Driver.WebSite.Controllers
 
             await _itemsRepository.AddItem(item);
 
-            return View("Index", new HomeViewModel(await GetAllItemsFromRepositoryAndConvertThemToViewModels()) { DisplayAddedInfo = true });
-        }
+            var homeViewModel = await PrepareHomeViewModel();
+            homeViewModel.DisplayAddedInfo = true;
 
-        private async Task<IEnumerable<ItemPanelViewModel>> GetAllItemsFromRepositoryAndConvertThemToViewModels()
-        {
-            return CreateItemPanelViewModels(await _itemsRepository.GetAllItems(this.GetCurrentUserId()));
+            return View("Index", homeViewModel);
         }
 
         private IEnumerable<ItemPanelViewModel> CreateItemPanelViewModels(IEnumerable<Item> items)
@@ -134,7 +133,7 @@ namespace Driver.WebSite.Controllers
             var item = (await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId()));
 
             if (item != null)
-                return View(new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel)));
+                return View(await PrepareItemPageViewModel(item));
             else
                 return HttpNotFound();
         }
@@ -158,10 +157,10 @@ namespace Driver.WebSite.Controllers
             }
             catch (Exception ex)
             {
-                return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel), ex));
+                return View("ItemPage", await PrepareItemPageViewModel(item, null, ex));
             }
 
-            return View("ItemPage", new ItemPageViewModel(CreateItemPanelViewModel( item ), item.Comments.Select(CreateCommentViewModel), comment.Id));
+            return View("ItemPage", await PrepareItemPageViewModel(item, comment.Id));
         }
 
         private CommentViewModel CreateCommentViewModel(Comment comment)
@@ -172,6 +171,61 @@ namespace Driver.WebSite.Controllers
             viewModel.UserVote = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
             viewModel.VotesCount = comment.GetVotesCount();
             return viewModel;
+        }
+
+        private async Task<HomeViewModel> PrepareHomeViewModel()
+        {
+            var items = await _itemsRepository.GetAllItems(this.GetCurrentUserId());
+            var itemPanelViewModels = CreateItemPanelViewModels(items);
+            var sidebar = await PrepareSidebar();
+            return new HomeViewModel
+            {
+                Items = itemPanelViewModels,
+                Sidebar = sidebar
+            };
+        }
+
+        private async Task<ItemPageViewModel> PrepareItemPageViewModel(Item item, 
+            int? addedCommentId = null, Exception commentAddingException = null)
+        {
+            ItemPageViewModel itemPageViewModel;
+            if (addedCommentId.HasValue)
+            {
+                itemPageViewModel = new ItemPageViewModel(
+                    CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel), addedCommentId);
+            }
+            else if (commentAddingException != null)
+            {
+                itemPageViewModel = new ItemPageViewModel(
+                    CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel), commentAddingException);
+            }
+            else
+            {
+                itemPageViewModel = new ItemPageViewModel(
+                    CreateItemPanelViewModel(item), item.Comments.Select(CreateCommentViewModel));
+            }
+            itemPageViewModel.Sidebar = await PrepareSidebar();
+
+            return itemPageViewModel;
+        }
+
+        private async Task<SidebarViewModel> PrepareSidebar()
+        {
+            var rankingDrivers = await _driversRepository.GetMostDownvotedDrivers(SidebarDriversRankingCount);
+            var rankingDriverViewModels = rankingDrivers.Select(d =>
+                {
+                    var viewModel = Mapper.Map<DriverRankingViewModel>(d);
+                    viewModel.Plate = FormatPlateDisplay(d.Plate);
+                    return viewModel;
+                });
+
+            return new SidebarViewModel
+            {
+                DriversRanking = new DriversRankingViewModel
+                {
+                    Drivers = rankingDriverViewModels
+                }
+            };
         }
     }
 }

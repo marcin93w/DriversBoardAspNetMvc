@@ -127,9 +127,32 @@ body {
           width: 400px; }
           body .add-item-container .drivers-form .driver-form .editor-field:nth-child(4) input {
             max-width: 400px; } }
+  body .sidebar .drivers-ranking .panel-heading {
+    background-color: #333; }
+  body .sidebar .drivers-ranking .panel-body {
+    background-color: #222; }
+  body .sidebar .drivers-ranking table {
+    width: 100%; }
+    body .sidebar .drivers-ranking table .ranking-driver .score {
+      font-size: x-large;
+      color: #a94242;
+      font-weight: bold; }
+    body .sidebar .drivers-ranking table .ranking-driver .plate {
+      font-weight: bold; }
+    body .sidebar .drivers-ranking table .ranking-driver td {
+      padding: 7px; }
+  body .sidebar .drivers-ranking .table-striped > tbody > tr:nth-child(2n + 1) {
+    background-color: #333; }
   body footer {
     background-color: #222;
     padding: 40px;
     border-top: 1px solid black;
-    clear: both; }
+    clear: both;
+    color: #b0b0b0;
+    font-size: small; }
+    body footer .icons-license a {
+      color: #b0b0b0;
+      text-decoration: underline; }
+    body footer .icons-license a:hover {
+      color: white; }
 

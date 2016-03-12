@@ -8,6 +8,7 @@
 $brand-color: #a94242;
 $background-color: #333;
 $top-panel-color: #222;
+$lighter-background-color: #444;
 $font-default: #b0b0b0;
 
 body {
@@ -212,11 +213,56 @@ body {
 
     }
 
+    .sidebar {
+        .drivers-ranking {
+            .panel-heading {
+                background-color: $background-color;
+            }
+
+            .panel-body {
+                background-color: $top-panel-color;
+            }
+
+            table {
+                width: 100%;
+
+                .ranking-driver {
+                    .score {
+                        font-size: x-large;
+                        color: $brand-color;
+                        font-weight: bold;
+                    }
+                    .plate {
+                        font-weight: bold;
+                    }
+                    td {
+                        padding: 7px;
+                    }
+                }
+            }
+
+            .table-striped > tbody > tr:nth-child(2n + 1) {
+                background-color: $background-color;
+            }
+        }
+    }
+
     footer {
         background-color: $top-panel-color;
         padding: 40px;
         border-top: 1px solid black;
         clear: both;
+        color: $font-default;
+        font-size: small;
+        .icons-license {
+            a {
+                color: $font-default;
+                text-decoration: underline;
+            }
+            a:hover {
+                color: white;
+            } 
+        }
     }
 
 }
