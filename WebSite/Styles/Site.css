@@ -127,6 +127,8 @@ body {
           width: 400px; }
           body .add-item-container .drivers-form .driver-form .editor-field:nth-child(4) input {
             max-width: 400px; } }
+  body .pagination {
+    width: 100%; }
   body .sidebar .drivers-ranking .panel-heading {
     background-color: #333; }
   body .sidebar .drivers-ranking .panel-body {

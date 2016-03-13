@@ -37,6 +37,7 @@
         {
             @Html.Partial("_ItemPanel", item)
         }
+        @Html.Partial("_Pagination", Model.Pagination)
     </div>
     <div class="col-md-4">
         @Html.Partial("_SidebarPanel", Model.Sidebar)

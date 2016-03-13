@@ -9,7 +9,9 @@ namespace Driver.WebSite.DAL
 {
     public interface IItemsRepository
     {
-        Task<IEnumerable<Item>> GetAllItems(string userId);
+        Task<IEnumerable<Item>> GetHomePageItems(string userId, int startingFrom, int limit);
+        Task<bool> AreThereOlderHomePageItems(DateTime time);
+
         Task<Item> GetItem(int itemId, string userId);
 
         Task<int> AddItem(Item item);

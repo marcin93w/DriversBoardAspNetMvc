@@ -10,6 +10,7 @@ namespace Driver.WebSite.ViewModels
     {
         public IEnumerable<ItemPanelViewModel> Items { get; set; }
         public bool DisplayAddedInfo { get; set; }
+        public PaginationViewModel Pagination { get; set; }
         public SidebarViewModel Sidebar { set; get; }
     }
 }

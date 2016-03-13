@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Driver.WebSite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(int? page)
         {
-            return View(await PrepareHomeViewModel());
+            return View(await PrepareHomeViewModel(page));
         }
 
         public ActionResult AddItem()
@@ -97,7 +98,7 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        public async Task<DriverOccurrence> CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
+        private async Task<DriverOccurrence> CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
         {
             var driver = await _driversRepository.FindDriverByPlate(viewModel.Plate) ?? 
                 new Models.Driver
@@ -162,15 +163,24 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        private async Task<HomeViewModel> PrepareHomeViewModel()
+        private async Task<HomeViewModel> PrepareHomeViewModel(int? page = null)
         {
-            var items = await _itemsRepository.GetAllItems(this.GetCurrentUserId());
+            int pageIdx = page - 1 ?? 0;
+
+            var items = (await _itemsRepository.GetHomePageItems(this.GetCurrentUserId(), 
+                startingFrom: pageIdx * PageItemsCount, limit: PageItemsCount)).ToArray();
             var itemPanelViewModels = CreateItemPanelViewModels(items);
+
             var sidebar = await PrepareSidebar();
+            var lastItemDateAdded = items.LastOrDefault()?.DateAdded;
+            var canGoToNextPage = lastItemDateAdded.HasValue && 
+                await _itemsRepository.AreThereOlderHomePageItems(lastItemDateAdded.Value);
+
             return new HomeViewModel
             {
                 Items = itemPanelViewModels,
-                Sidebar = sidebar
+                Sidebar = sidebar,
+                Pagination = new PaginationViewModel(pageIdx+1, canGoToNextPage)
             };
         }
 

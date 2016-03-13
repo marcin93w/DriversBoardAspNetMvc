@@ -267,6 +267,7 @@
     <Compile Include="Source\ViewModels\DriverOccurrenceViewModel.cs" />
     <Compile Include="Source\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\ViewModels\PaginationViewModel.cs" />
     <Compile Include="Source\ViewModels\SidebarViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Source\ViewModels\AddItemViewModel.cs" />
@@ -357,6 +358,7 @@
     <Content Include="Views\Home\_AddComment.cshtml" />
     <Content Include="Views\Home\_AddDriver.cshtml" />
     <Content Include="Views\Home\_DriversRankingPanel.cshtml" />
+    <Content Include="Views\Home\_Pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

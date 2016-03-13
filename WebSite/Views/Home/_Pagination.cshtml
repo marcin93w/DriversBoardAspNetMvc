@@ -1,0 +1,16 @@
+﻿@model Driver.WebSite.ViewModels.PaginationViewModel
+
+<div class="pagination">
+    @if (Model.IsPreviousPage)
+    {
+        <div class="prev pull-left">
+            <a class="btn btn-default" href="/strona/@Model.PrevPageId">Poprzednia strona</a>
+        </div>
+    }
+    @if (Model.IsNextPage)
+    {
+        <div class="next pull-right">
+            <a class="btn btn-default" href="/strona/@Model.NextPageId">Następna strona</a>
+        </div>
+    }
+</div>

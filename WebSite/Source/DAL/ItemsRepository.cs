@@ -19,16 +19,36 @@ namespace Driver.WebSite.DAL
             context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        public async Task<IEnumerable<Item>> GetAllItems(string userId)
+        private IQueryable<Item> HomePageItemsQuery
         {
-            var source = _context.Items.Include(i => i.Author)
-                .Include(i => i.DriversOccurrences)
-                .Include(i => i.DriversOccurrences.Select(o => o.Driver));
-            var items = await (from item in source
-                               orderby item.DateAdded descending
-                               select item).ToArrayAsync();
+            get
+            {
+                var source = _context.Items.Include(i => i.Author)
+                    .Include(i => i.DriversOccurrences)
+                    .Include(i => i.DriversOccurrences.Select(o => o.Driver));
+                return from item in source
+                       orderby item.DateAdded descending
+                       select item;
+            }
+        }
+
+        public async Task<IEnumerable<Item>> GetHomePageItems(string userId, int startingFrom, int limit)
+        {
+            var items = await HomePageItemsQuery
+                .Skip(startingFrom).Take(limit)
+                .ToArrayAsync();
 
             return await LoadVotes(items, userId);
+        }
+
+        public async Task<bool> AreThereOlderHomePageItems(DateTime time)
+        {
+            return await AreThereOlderItems(HomePageItemsQuery, time);
+        }
+
+        public async Task<bool> AreThereOlderItems(IQueryable<Item> itemsQuery, DateTime time)
+        {
+            return await itemsQuery.Where(i => i.DateAdded < time).AnyAsync();
         }
 
         public async Task<Item> GetItem(int itemId, string userId)

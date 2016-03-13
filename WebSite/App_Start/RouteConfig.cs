@@ -26,6 +26,18 @@ namespace Driver.WebSite
             );
 
             routes.MapRoute(
+                name: "HomeIndexPaged",
+                url: "strona/{page}",
+                defaults: new { controller = "Home", action = "Index", page = 1, id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "HomePaged",
+                url: "{action}/strona/{page}",
+                defaults: new { controller = "Home", action = "Index", page = 1, id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
