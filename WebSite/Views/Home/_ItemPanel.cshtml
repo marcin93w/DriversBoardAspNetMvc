@@ -44,8 +44,16 @@
                 @foreach (var driverOccurrence in @Model.DriverOccurrences)
                 {
                     <tr id="driver-occurrence-@driverOccurrence.Id">
-                        <td class="plate-col"><strong>@driverOccurrence.Plate</strong></td>
-                        <td class="desc-col">@driverOccurrence.Description</td>
+                        <td class="plate-col">
+                            <strong>
+                                @Html.ActionLink(driverOccurrence.Plate, "DriverItemsById",
+                                    new { driverId = driverOccurrence.DriverId })
+                            </strong>
+                        </td>
+
+                        <td class="desc-col">
+                            @Html.ActionLink(driverOccurrence.Description, "DriverItemsById",
+                                    new { driverId = driverOccurrence.DriverId })</td>
                         <td class="score-col">
                             <strong class="text-danger">
                                 <span data-bind="text: downRate" title="Liczba punktów karnych" class="driver-score">

@@ -33,6 +33,10 @@ body {
         }
     }
 
+    tr[data-href] {
+        cursor: pointer;
+    }
+
     .navbar {
         .navbar-logo {
             display: block;
@@ -247,6 +251,10 @@ body {
 
             .table-striped > tbody > tr:nth-child(2n + 1) {
                 background-color: $background-color;
+            }
+
+            tr:hover, .table-striped > tbody > tr:nth-child(2n + 1):hover {
+                background-color: $lighter-background-color;
             }
         }
     }

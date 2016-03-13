@@ -22,6 +22,8 @@ body {
       background-color: black;
       color: #b0b0b0;
       border-color: #333; }
+  body tr[data-href] {
+    cursor: pointer; }
   body .navbar .navbar-logo {
     display: block;
     margin: 5px;
@@ -145,6 +147,8 @@ body {
       padding: 7px; }
   body .sidebar .drivers-ranking .table-striped > tbody > tr:nth-child(2n + 1) {
     background-color: #333; }
+  body .sidebar .drivers-ranking tr:hover, body .sidebar .drivers-ranking .table-striped > tbody > tr:nth-child(2n + 1):hover {
+    background-color: #444; }
   body footer {
     background-color: #222;
     padding: 40px;

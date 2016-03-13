@@ -50,6 +50,25 @@ namespace Driver.WebSite.Controllers
             return View("Index", await PrepareItemsPageViewModel(_itemsRepository.WaitingItemsQuery, "poczekalnia", page));
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> DriverItemsById(int? driverId, int? page)
+        {
+            if(!driverId.HasValue)
+                return HttpNotFound();
+
+            return View("Index", await PrepareItemsPageViewModel(
+                _itemsRepository.GetDriverItemsQuery(driverId.Value), $"kierowca/id/{driverId}", page));
+        }
+        [AllowAnonymous]
+        public async Task<ActionResult> DriverItems(string plate, int? page)
+        {
+            if(string.IsNullOrEmpty(plate))
+                return HttpNotFound();
+
+            return View("Index", await PrepareItemsPageViewModel(
+                _itemsRepository.GetDriverItemsQuery(plate), $"kierowca/{plate}", page));
+        }
+
         public ActionResult AddItem()
         {
             return View(new AddItemViewModel());

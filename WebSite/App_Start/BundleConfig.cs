@@ -25,6 +25,8 @@ namespace Driver.WebSite
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Resources/Scripts/knockout-3.4.0.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/utils").Include("~/Scripts/Utils.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Resources/Styles/bootstrap.css",

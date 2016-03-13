@@ -9,6 +9,9 @@ namespace Driver.WebSite.DAL.Items
         TopItemsQuery TopItemsQuery { get; }
         WaitingItemsQuery WaitingItemsQuery { get; }
 
+        DriverItemsQuery GetDriverItemsQuery(int driverId);
+        DriverItemsQuery GetDriverItemsQuery(string plate);
+
         Task<Item> GetItem(int itemId, string userId);
 
         Task<int> AddItem(Item item);

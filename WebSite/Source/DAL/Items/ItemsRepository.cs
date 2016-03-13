@@ -23,6 +23,16 @@ namespace Driver.WebSite.DAL.Items
         public TopItemsQuery TopItemsQuery { get; }
         public WaitingItemsQuery WaitingItemsQuery { get; }
 
+        public DriverItemsQuery GetDriverItemsQuery(int driverId)
+        {
+            return new DriverItemsQuery(_context, driverId);
+        }
+
+        public DriverItemsQuery GetDriverItemsQuery(string plate)
+        {
+            return new DriverItemsQuery(_context, plate);
+        }
+
         public async Task<Item> GetItem(int itemId, string userId)
         {
             var singleItemQuery = new SingleItemQuery(_context, itemId);

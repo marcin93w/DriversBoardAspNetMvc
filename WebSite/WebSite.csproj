@@ -239,6 +239,7 @@
     <Compile Include="Source\Controllers\HomeController.cs" />
     <Compile Include="Source\Controllers\RatingController.cs" />
     <Compile Include="Source\Controllers\ManageController.cs" />
+    <Compile Include="Source\DAL\Items\DriverItemsQuery.cs" />
     <Compile Include="Source\DAL\Items\WaitingItemsQuery.cs" />
     <Compile Include="Source\DAL\Items\TopItemsQuery.cs" />
     <Compile Include="Source\DAL\Votes\DriverOccurenceVotesRepository.cs" />
@@ -386,6 +387,7 @@
     <TypeScriptCompile Include="Resources\Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Resources\Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Resources\Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
+    <TypeScriptCompile Include="Scripts\Utils.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
