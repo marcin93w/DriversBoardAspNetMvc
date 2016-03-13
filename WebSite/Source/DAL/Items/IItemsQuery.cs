@@ -8,6 +8,6 @@ namespace Driver.WebSite.DAL.Items
     public interface IItemsQuery
     {
         Task<IEnumerable<Item>> GetItems(string userId, int startingFrom, int limit);
-        Task<bool> AreThereOlderItems(DateTime time);
+        Task<bool> AreThereNextItems(Item lastItem);
     }
 }

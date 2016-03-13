@@ -19,7 +19,7 @@ namespace Driver.WebSite.DAL.Items
 
         protected abstract IQueryable<Item> Query { get; } 
 
-        public virtual async Task<IEnumerable<Item>> GetItems(string userId, int startingFrom, int limit)
+        public async Task<IEnumerable<Item>> GetItems(string userId, int startingFrom, int limit)
         {
             var queryWithSkip = Query;
             if (startingFrom > 0)
@@ -31,9 +31,9 @@ namespace Driver.WebSite.DAL.Items
             return await LoadVotes(items, userId);
         }
 
-        public virtual async Task<bool> AreThereOlderItems(DateTime time)
+        public virtual async Task<bool> AreThereNextItems(Item lastItem)
         {
-            return await Query.Where(i => i.DateAdded < time).AnyAsync();
+            return await Query.Where(i => i.DateAdded < lastItem.DateAdded).AnyAsync();
         }
 
         private async Task<IEnumerable<Item>> LoadVotes(Item[] items, string userId)

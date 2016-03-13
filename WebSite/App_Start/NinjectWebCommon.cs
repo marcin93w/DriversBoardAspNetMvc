@@ -73,6 +73,8 @@ namespace Driver.WebSite
             kernel.Bind<IVotesRepository<Item>>().To<ItemVotesRepository>().InRequestScope();
             kernel.Bind<IVotesRepository<Comment>>().To<CommentVotesRepository>().InRequestScope();
             kernel.Bind<IVotesRepository<DriverOccurrence>>().To<DriverOccurenceVotesRepository>().InRequestScope();
+            kernel.Bind<HomePageItemsQuery>().ToSelf().InRequestScope();
+            kernel.Bind<TopItemsQuery>().ToSelf().InRequestScope();
         }        
     }
 }

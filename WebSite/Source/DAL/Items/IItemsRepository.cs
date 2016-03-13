@@ -6,6 +6,7 @@ namespace Driver.WebSite.DAL.Items
     public interface IItemsRepository
     {
         HomePageItemsQuery HomePageItemsQuery { get; }
+        TopItemsQuery TopItemsQuery { get; }
 
         Task<Item> GetItem(int itemId, string userId);
 

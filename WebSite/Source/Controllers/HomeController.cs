@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using Driver.WebSite.DAL;
 using Driver.WebSite.DAL.Drivers;
 using Driver.WebSite.DAL.Items;
 using Driver.WebSite.Models;
@@ -36,7 +35,13 @@ namespace Driver.WebSite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(int? page)
         {
-            return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, page));
+            return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, null, page));
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Top(int? page)
+        {
+            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.TopItemsQuery, "top", page));
         }
 
         public ActionResult AddItem()
@@ -83,7 +88,7 @@ namespace Driver.WebSite.Controllers
             var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item);
             viewModel.AuthorLogin = item.Author.UserName;
             bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
-            viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
+            viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0; //TODO moze by dodac automapper converter
             viewModel.DriverOccurrences = item.DriversOccurrences.Select(CreateDriverOccurrenceViewModel);
             return viewModel;
         }
@@ -167,7 +172,8 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        private async Task<ItemsPageViewModel> PrepareItemsPageViewModel(IItemsQuery itemsQuery, int? page = null)
+        private async Task<ItemsPageViewModel> PrepareItemsPageViewModel(IItemsQuery itemsQuery, string pageHref = null, 
+            int? page = null)
         {
             int pageIdx = page - 1 ?? 0;
 
@@ -176,15 +182,15 @@ namespace Driver.WebSite.Controllers
             var itemPanelViewModels = CreateItemPanelViewModels(items);
 
             var sidebar = await PrepareSidebar();
-            var lastItemDateAdded = items.LastOrDefault()?.DateAdded;
-            var canGoToNextPage = lastItemDateAdded.HasValue && 
-                await itemsQuery.AreThereOlderItems(lastItemDateAdded.Value);
+            var lastItem = items.LastOrDefault(); 
+            var canGoToNextPage = lastItem != null && 
+                await itemsQuery.AreThereNextItems(lastItem);
 
             return new ItemsPageViewModel
             {
                 Items = itemPanelViewModels,
                 Sidebar = sidebar,
-                Pagination = new PaginationViewModel(pageIdx+1, canGoToNextPage)
+                Pagination = new PaginationViewModel(pageHref, pageIdx+1, canGoToNextPage)
             };
         }
 
