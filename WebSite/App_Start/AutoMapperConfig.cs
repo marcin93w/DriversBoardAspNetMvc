@@ -23,12 +23,15 @@ namespace Driver.WebSite
 
         private static void InitializeMapper(IConfiguration cfg)
         {
-            cfg.CreateMap<Item, ItemPanelViewModel>();
+            cfg.CreateMap<Item, ItemPanelViewModel>()
+                .ForMember(vm => vm.UserVoting, opt => opt.ResolveUsing<ItemUserVotingResolver>());
             cfg.CreateMap<Item, ItemPageViewModel>();
             cfg.CreateMap<AddItemViewModel, Item>();
-            cfg.CreateMap<Comment, CommentViewModel>();
+            cfg.CreateMap<Comment, CommentViewModel>()
+                .ForMember(vm => vm.UserVote, opt => opt.ResolveUsing<CommentUserVotingResolver>());
             cfg.CreateMap<DriverOccurrence, DriverOccurrenceViewModel>()
-                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<DriverOccurrencePlateResolver>());
+                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<DriverOccurrencePlateResolver>())
+                .ForMember(vm => vm.UserVote, opt => opt.ResolveUsing<DriverOccurrenceUserVotingResolver>());
             cfg.CreateMap<Models.Driver, DriverRankingViewModel>()
                 .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<PlateResolver>());
 

@@ -87,8 +87,6 @@ namespace Driver.WebSite.Controllers
         {
             var viewModel = Mapper.Map<Item, ItemPanelViewModel>(item);
             viewModel.AuthorLogin = item.Author.UserName;
-            bool? userVotedPositive = item.Votes.FirstOrDefault()?.Positive;
-            viewModel.UserVoting = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0; //TODO moze by dodac automapper converter
             viewModel.DriverOccurrences = item.DriversOccurrences.Select(CreateDriverOccurrenceViewModel);
             return viewModel;
         }
@@ -100,9 +98,6 @@ namespace Driver.WebSite.Controllers
             {
                 viewModel.Description = driverOccurrence.Driver.Description;
             }
-
-            bool? userVotedPositive = driverOccurrence.Votes.FirstOrDefault()?.Positive;
-            viewModel.UserVote = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
 
             return viewModel;
         }
@@ -166,8 +161,6 @@ namespace Driver.WebSite.Controllers
         {
             var viewModel = Mapper.Map<Comment, CommentViewModel>(comment);
             viewModel.AuthorLogin = comment.User.UserName;
-            bool? userVotedPositive = comment.CommentVotes.FirstOrDefault()?.Positive;
-            viewModel.UserVote = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
             viewModel.VotesCount = comment.GetVotesCount();
             return viewModel;
         }
