@@ -5,9 +5,9 @@ using Driver.WebSite.Models;
 
 namespace Driver.WebSite.DAL.Items
 {
-    public class HomePageItemsQuery : ItemsQuery
+    public class WaitingItemsQuery : ItemsQuery
     {
-        public HomePageItemsQuery(ApplicationDbContext context) : base(context)
+        public WaitingItemsQuery(ApplicationDbContext context) : base(context)
         {
         }
 
@@ -19,7 +19,7 @@ namespace Driver.WebSite.DAL.Items
                     .Include(i => i.DriversOccurrences)
                     .Include(i => i.DriversOccurrences.Select(o => o.Driver));
                 return from item in source
-                       where item.DisplayOnHomePage
+                       where !item.DisplayOnHomePage
                        orderby item.DateAdded descending
                        select item;
             }

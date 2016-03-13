@@ -239,6 +239,7 @@
     <Compile Include="Source\Controllers\HomeController.cs" />
     <Compile Include="Source\Controllers\RatingController.cs" />
     <Compile Include="Source\Controllers\ManageController.cs" />
+    <Compile Include="Source\DAL\Items\WaitingItemsQuery.cs" />
     <Compile Include="Source\DAL\Items\TopItemsQuery.cs" />
     <Compile Include="Source\DAL\Votes\DriverOccurenceVotesRepository.cs" />
     <Compile Include="Source\DAL\Votes\CommentVotesRepository.cs" />

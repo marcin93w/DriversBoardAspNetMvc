@@ -21,6 +21,8 @@ namespace Driver.WebSite.Models
         public ICollection<ItemVote> Votes { set; get; }
         public ICollection<DriverOccurrence> DriversOccurrences { set; get; } 
 
+        public bool DisplayOnHomePage { set; get; }
+
         public Item()
         {
             Votes = new HashSet<ItemVote>();

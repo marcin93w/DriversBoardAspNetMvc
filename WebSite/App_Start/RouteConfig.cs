@@ -38,6 +38,18 @@ namespace Driver.WebSite
             );
 
             routes.MapRoute(
+                name: "Waiting",
+                url: "poczekalnia",
+                defaults: new { controller = "Home", action = "WaitingItems", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "WaitingPaged",
+                url: "poczekalnia/strona/{page}",
+                defaults: new { controller = "Home", action = "WaitingItems", page = 1, id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Index",
                 url: "",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

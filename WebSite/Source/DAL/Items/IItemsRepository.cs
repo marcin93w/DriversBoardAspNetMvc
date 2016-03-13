@@ -7,6 +7,7 @@ namespace Driver.WebSite.DAL.Items
     {
         HomePageItemsQuery HomePageItemsQuery { get; }
         TopItemsQuery TopItemsQuery { get; }
+        WaitingItemsQuery WaitingItemsQuery { get; }
 
         Task<Item> GetItem(int itemId, string userId);
 

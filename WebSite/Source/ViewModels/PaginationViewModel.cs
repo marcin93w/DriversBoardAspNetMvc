@@ -6,7 +6,7 @@
         {
             IsPreviousPage = currentPageId > 1;
             IsNextPage = areThereMoreItems;
-            BasePageHref = basePageHref;
+            BasePageHref = string.IsNullOrEmpty(basePageHref) ? string.Empty : $"/{basePageHref}";
             PrevPageId = currentPageId - 1;
             NextPageId = currentPageId + 1;
         }

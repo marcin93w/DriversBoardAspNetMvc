@@ -75,6 +75,7 @@ namespace Driver.WebSite
             kernel.Bind<IVotesRepository<DriverOccurrence>>().To<DriverOccurenceVotesRepository>().InRequestScope();
             kernel.Bind<HomePageItemsQuery>().ToSelf().InRequestScope();
             kernel.Bind<TopItemsQuery>().ToSelf().InRequestScope();
+            kernel.Bind<WaitingItemsQuery>().ToSelf().InRequestScope();
         }        
     }
 }

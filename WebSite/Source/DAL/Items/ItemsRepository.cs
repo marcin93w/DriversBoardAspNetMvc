@@ -9,17 +9,19 @@ namespace Driver.WebSite.DAL.Items
         private readonly ApplicationDbContext _context;
 
         public ItemsRepository(ApplicationDbContext context, HomePageItemsQuery homePageItemsQuery, 
-            TopItemsQuery topItemsQuery)
+            TopItemsQuery topItemsQuery, WaitingItemsQuery waitingItemsQuery)
         {
             _context = context;
             HomePageItemsQuery = homePageItemsQuery;
             TopItemsQuery = topItemsQuery;
+            WaitingItemsQuery = waitingItemsQuery;
 
             context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public HomePageItemsQuery HomePageItemsQuery { get; }
         public TopItemsQuery TopItemsQuery { get; }
+        public WaitingItemsQuery WaitingItemsQuery { get; }
 
         public async Task<Item> GetItem(int itemId, string userId)
         {

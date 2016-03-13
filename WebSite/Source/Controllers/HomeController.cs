@@ -44,6 +44,12 @@ namespace Driver.WebSite.Controllers
             return View("Index", await PrepareItemsPageViewModel(_itemsRepository.TopItemsQuery, "top", page));
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> WaitingItems(int? page)
+        {
+            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.WaitingItemsQuery, "poczekalnia", page));
+        }
+
         public ActionResult AddItem()
         {
             return View(new AddItemViewModel());
