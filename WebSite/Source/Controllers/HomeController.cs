@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Driver.WebSite.DAL;
+using Driver.WebSite.DAL.Drivers;
+using Driver.WebSite.DAL.Items;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 using Driver.WebSite.ViewModels.AddItem;
@@ -36,7 +36,7 @@ namespace Driver.WebSite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(int? page)
         {
-            return View(await PrepareHomeViewModel(page));
+            return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, page));
         }
 
         public ActionResult AddItem()
@@ -67,7 +67,7 @@ namespace Driver.WebSite.Controllers
 
             await _itemsRepository.AddItem(item);
 
-            var homeViewModel = await PrepareHomeViewModel();
+            var homeViewModel = await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery);
             homeViewModel.DisplayAddedInfo = true;
 
             return View("Index", homeViewModel);
@@ -124,7 +124,7 @@ namespace Driver.WebSite.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var item = (await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId()));
+            var item = await _itemsRepository.GetItem(id.Value, this.GetCurrentUserId());
 
             if (item != null)
                 return View(await PrepareItemPageViewModel(item));
@@ -167,20 +167,20 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        private async Task<HomeViewModel> PrepareHomeViewModel(int? page = null)
+        private async Task<ItemsPageViewModel> PrepareItemsPageViewModel(IItemsQuery itemsQuery, int? page = null)
         {
             int pageIdx = page - 1 ?? 0;
 
-            var items = (await _itemsRepository.GetHomePageItems(this.GetCurrentUserId(), 
+            var items = (await itemsQuery.GetItems(this.GetCurrentUserId(), 
                 startingFrom: pageIdx * PageItemsCount, limit: PageItemsCount)).ToArray();
             var itemPanelViewModels = CreateItemPanelViewModels(items);
 
             var sidebar = await PrepareSidebar();
             var lastItemDateAdded = items.LastOrDefault()?.DateAdded;
             var canGoToNextPage = lastItemDateAdded.HasValue && 
-                await _itemsRepository.AreThereOlderHomePageItems(lastItemDateAdded.Value);
+                await itemsQuery.AreThereOlderItems(lastItemDateAdded.Value);
 
-            return new HomeViewModel
+            return new ItemsPageViewModel
             {
                 Items = itemPanelViewModels,
                 Sidebar = sidebar,

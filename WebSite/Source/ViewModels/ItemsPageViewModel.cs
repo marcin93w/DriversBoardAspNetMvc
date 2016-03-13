@@ -8,7 +8,7 @@ using Driver.WebSite.ViewModels.Sidebar;
 
 namespace Driver.WebSite.ViewModels
 {
-    public class HomeViewModel
+    public class ItemsPageViewModel
     {
         public IEnumerable<ItemPanelViewModel> Items { get; set; }
         public bool DisplayAddedInfo { get; set; }

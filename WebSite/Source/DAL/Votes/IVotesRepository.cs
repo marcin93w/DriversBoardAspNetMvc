@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Driver.WebSite.Models;
 
-namespace Driver.WebSite.DAL
+namespace Driver.WebSite.DAL.Votes
 {
     public interface IVotesRepository<T> where T:IVotable
     {

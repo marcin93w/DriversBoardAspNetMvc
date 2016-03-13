@@ -238,19 +238,23 @@
     <Compile Include="Source\Controllers\HomeController.cs" />
     <Compile Include="Source\Controllers\RatingController.cs" />
     <Compile Include="Source\Controllers\ManageController.cs" />
-    <Compile Include="Source\DAL\DriverOccurenceVotesRepository.cs" />
-    <Compile Include="Source\DAL\CommentVotesRepository.cs" />
-    <Compile Include="Source\DAL\DriversRepository.cs" />
-    <Compile Include="Source\DAL\IDriversRepository.cs" />
-    <Compile Include="Source\DAL\IItemsRepository.cs" />
-    <Compile Include="Source\DAL\ItemsRepository.cs" />
+    <Compile Include="Source\DAL\Votes\DriverOccurenceVotesRepository.cs" />
+    <Compile Include="Source\DAL\Votes\CommentVotesRepository.cs" />
+    <Compile Include="Source\DAL\Drivers\DriversRepository.cs" />
+    <Compile Include="Source\DAL\Items\HomePageItemsQuery.cs" />
+    <Compile Include="Source\DAL\Drivers\IDriversRepository.cs" />
+    <Compile Include="Source\DAL\Items\IItemsRepository.cs" />
+    <Compile Include="Source\DAL\Items\IItemsQuery.cs" />
+    <Compile Include="Source\DAL\Items\ItemsQuery.cs" />
+    <Compile Include="Source\DAL\Items\ItemsRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Source\DAL\ApplicationDbContext.cs" />
-    <Compile Include="Source\DAL\ItemVotesRepository.cs" />
-    <Compile Include="Source\DAL\IVotesRepository.cs" />
+    <Compile Include="Source\DAL\Votes\ItemVotesRepository.cs" />
+    <Compile Include="Source\DAL\Votes\IVotesRepository.cs" />
+    <Compile Include="Source\DAL\Items\SingleItemQuery.cs" />
     <Compile Include="Source\Models\ApplicationUser.cs" />
     <Compile Include="Source\Models\CommentVote.cs" />
     <Compile Include="Source\Models\Driver.cs" />
@@ -273,7 +277,7 @@
     <Compile Include="Source\ViewModels\Sidebar\SidebarViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Source\ViewModels\AddItem\AddItemViewModel.cs" />
-    <Compile Include="Source\ViewModels\HomeViewModel.cs" />
+    <Compile Include="Source\ViewModels\ItemsPageViewModel.cs" />
     <Compile Include="Source\ViewModels\ItemPage\ItemPageViewModel.cs" />
     <Compile Include="Source\ViewModels\ItemPanel\ItemPanelViewModel.cs" />
   </ItemGroup>

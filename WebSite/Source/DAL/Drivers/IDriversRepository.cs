@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Driver.WebSite.DAL
+namespace Driver.WebSite.DAL.Drivers
 {
     public interface IDriversRepository
     {
