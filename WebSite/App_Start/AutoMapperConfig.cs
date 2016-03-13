@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Driver.WebSite.AutoMapperConverters;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
 
@@ -22,7 +23,10 @@ namespace Driver.WebSite
             cfg.CreateMap<Item, ItemPageViewModel>();
             cfg.CreateMap<AddItemViewModel, Item>();
             cfg.CreateMap<Comment, CommentViewModel>();
-            cfg.CreateMap<Models.Driver, DriverRankingViewModel>();
+            cfg.CreateMap<DriverOccurrence, DriverOccurrenceViewModel>()
+                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<DriverOccurrencePlateResolver>());
+            cfg.CreateMap<Models.Driver, DriverRankingViewModel>()
+                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<PlateResolver>());
 
             cfg.CreateMap<Vote<Item>, ItemVote>();
             cfg.CreateMap<Vote<Comment>, CommentVote>();

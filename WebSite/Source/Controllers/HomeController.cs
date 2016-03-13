@@ -17,6 +17,7 @@ namespace Driver.WebSite.Controllers
     public class HomeController : Controller
     {
         private const int SidebarDriversRankingCount = 5;
+        private const int PageItemsCount = 5;
 
         private readonly IItemsRepository _itemsRepository;
         private readonly IDriversRepository _driversRepository;
@@ -28,7 +29,7 @@ namespace Driver.WebSite.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             return View(await PrepareHomeViewModel());
         }
@@ -84,28 +85,16 @@ namespace Driver.WebSite.Controllers
 
         private DriverOccurrenceViewModel CreateDriverOccurrenceViewModel(DriverOccurrence driverOccurrence)
         {
-            var viewModel = new DriverOccurrenceViewModel
+            var viewModel = Mapper.Map<DriverOccurrenceViewModel>(driverOccurrence);
+            if (string.IsNullOrEmpty(viewModel.Description))
             {
-                Id = driverOccurrence.Id,
-                DriverId = driverOccurrence.Driver.Id,
-                Plate = FormatPlateDisplay(driverOccurrence.Driver.Plate),
-                Description = driverOccurrence.Description ?? driverOccurrence.Driver.Description,
-                DownVotesCount = driverOccurrence.DownVotesCount,
-                StartSecond = driverOccurrence.StartSecond,
-                EndSecond = driverOccurrence.EndSecond
-            };
+                viewModel.Description = driverOccurrence.Driver.Description;
+            }
 
             bool? userVotedPositive = driverOccurrence.Votes.FirstOrDefault()?.Positive;
             viewModel.UserVote = userVotedPositive.HasValue ? (userVotedPositive.Value ? 1 : -1) : 0;
 
             return viewModel;
-        }
-
-        private string FormatPlateDisplay(string plate)
-        {
-            plate = plate.Replace(" ", string.Empty);
-            var indexToInsertSpace = char.IsLetter(plate[2]) ? 3 : 2;
-            return plate.Insert(indexToInsertSpace, " ");
         }
 
         public async Task<DriverOccurrence> CreateDriverOccurrenceFromAddDriverViewModel(AddDriverOccurrenceViewModel viewModel)
@@ -212,12 +201,7 @@ namespace Driver.WebSite.Controllers
         private async Task<SidebarViewModel> PrepareSidebar()
         {
             var rankingDrivers = await _driversRepository.GetMostDownvotedDrivers(SidebarDriversRankingCount);
-            var rankingDriverViewModels = rankingDrivers.Select(d =>
-                {
-                    var viewModel = Mapper.Map<DriverRankingViewModel>(d);
-                    viewModel.Plate = FormatPlateDisplay(d.Plate);
-                    return viewModel;
-                });
+            var rankingDriverViewModels = rankingDrivers.Select(Mapper.Map<DriverRankingViewModel>);
 
             return new SidebarViewModel
             {
