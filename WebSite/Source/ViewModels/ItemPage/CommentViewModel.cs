@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Driver.WebSite.Models;
 using Humanizer;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.ItemPage
 {
     public class CommentViewModel
     {

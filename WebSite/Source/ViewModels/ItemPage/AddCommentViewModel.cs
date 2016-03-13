@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using Driver.WebSite.Models;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.ItemPage
 {
     public class AddCommentViewModel
     {

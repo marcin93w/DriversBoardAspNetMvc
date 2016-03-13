@@ -1,4 +1,4 @@
-﻿namespace Driver.WebSite.ViewModels
+﻿namespace Driver.WebSite.ViewModels.ItemPanel
 {
     public class DriverOccurrenceViewModel
     {

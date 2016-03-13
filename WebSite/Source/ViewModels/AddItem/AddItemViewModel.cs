@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Driver.WebSite.Models;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.AddItem
 {
     public class AddItemViewModel : IValidatableObject
     {

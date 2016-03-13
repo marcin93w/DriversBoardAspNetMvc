@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.AddItem
 {
     public class AddDriverOccurrenceViewModel
     {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.Account
 {
     public class IndexViewModel
     {

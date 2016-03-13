@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Driver.WebSite.Models;
+using Driver.WebSite.ViewModels.ItemPanel;
+using Driver.WebSite.ViewModels.Sidebar;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.ItemPage
 {
     public class ItemPageViewModel
     {

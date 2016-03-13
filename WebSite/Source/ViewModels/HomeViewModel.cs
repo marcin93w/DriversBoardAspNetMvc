@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Driver.WebSite.ViewModels.ItemPanel;
+using Driver.WebSite.ViewModels.Sidebar;
 
 namespace Driver.WebSite.ViewModels
 {

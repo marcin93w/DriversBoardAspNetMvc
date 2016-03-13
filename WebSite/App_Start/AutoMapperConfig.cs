@@ -7,6 +7,10 @@ using AutoMapper;
 using Driver.WebSite.AutoMapperConverters;
 using Driver.WebSite.Models;
 using Driver.WebSite.ViewModels;
+using Driver.WebSite.ViewModels.AddItem;
+using Driver.WebSite.ViewModels.ItemPage;
+using Driver.WebSite.ViewModels.ItemPanel;
+using Driver.WebSite.ViewModels.Sidebar;
 
 namespace Driver.WebSite
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Driver.WebSite.ViewModels
+namespace Driver.WebSite.ViewModels.Account
 {
     public class ExternalLoginConfirmationViewModel
     {
