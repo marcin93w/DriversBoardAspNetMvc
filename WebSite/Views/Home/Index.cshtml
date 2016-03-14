@@ -1,6 +1,6 @@
 ﻿@model Driver.WebSite.ViewModels.ItemsPageViewModel
 @{
-    ViewBag.Title = "Strona Główna";
+    ViewBag.Title = @Model.Title;
 }
 
 @section scripts {
@@ -33,6 +33,12 @@
     }
 
     <div class="items-container col-md-8">
+
+        @if (@Model.DriverInfoPanel != null)
+        {
+            @Html.Partial("_DriverInfoPanel", @Model.DriverInfoPanel)
+        }
+
         @foreach (var item in Model.Items)
         {
             @Html.Partial("_ItemPanel", item)

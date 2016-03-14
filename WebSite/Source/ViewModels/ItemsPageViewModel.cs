@@ -14,5 +14,7 @@ namespace Driver.WebSite.ViewModels
         public bool DisplayAddedInfo { get; set; }
         public PaginationViewModel Pagination { get; set; }
         public SidebarViewModel Sidebar { set; get; }
+        public string Title { set; get; }
+        public DriverInfoViewModel DriverInfoPanel { set; get; }
     }
 }

@@ -161,4 +161,12 @@ body {
       text-decoration: underline; }
     body footer .icons-license a:hover {
       color: white; }
+  body .driver-panel div {
+    display: inline-block;
+    padding: 15px; }
+  body .driver-panel .score {
+    color: #a94242; }
+  body .driver-panel .plate, body .driver-panel .score {
+    font-size: x-large;
+    font-weight: bold; }
 

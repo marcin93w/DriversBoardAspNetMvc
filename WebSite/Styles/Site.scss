@@ -277,4 +277,18 @@ body {
         }
     }
 
+    .driver-panel {
+        div {
+            display: inline-block;
+            padding: 15px;
+        }
+        .score {
+            color: $brand-color;
+        }
+        .plate, .score {
+            font-size: x-large;
+            font-weight: bold;
+        }
+    }
+
 }

@@ -35,19 +35,20 @@ namespace Driver.WebSite.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(int? page)
         {
-            return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, null, page));
+            return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, "Strona Główna", null, page));
         }
 
         [AllowAnonymous]
         public async Task<ActionResult> Top(int? page)
         {
-            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.TopItemsQuery, "top", page));
+            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.TopItemsQuery, "Top", "top", page));
         }
 
         [AllowAnonymous]
         public async Task<ActionResult> WaitingItems(int? page)
         {
-            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.WaitingItemsQuery, "poczekalnia", page));
+            return View("Index", await PrepareItemsPageViewModel(_itemsRepository.WaitingItemsQuery,
+                "Poczekalnia", "poczekalnia", page));
         }
 
         [AllowAnonymous]
@@ -57,7 +58,7 @@ namespace Driver.WebSite.Controllers
                 return HttpNotFound();
 
             return View("Index", await PrepareItemsPageViewModel(
-                _itemsRepository.GetDriverItemsQuery(driverId.Value), $"kierowca/id/{driverId}", page));
+                _itemsRepository.GetDriverItemsQuery(driverId.Value), $"kierowca/id/{driverId}", "Kierowca", page));
         }
         [AllowAnonymous]
         public async Task<ActionResult> DriverItems(string plate, int? page)
@@ -65,8 +66,14 @@ namespace Driver.WebSite.Controllers
             if(string.IsNullOrEmpty(plate))
                 return HttpNotFound();
 
-            return View("Index", await PrepareItemsPageViewModel(
-                _itemsRepository.GetDriverItemsQuery(plate), $"kierowca/{plate}", page));
+            var itemsPageViewModel = await PrepareItemsPageViewModel(
+                _itemsRepository.GetDriverItemsQuery(plate), $"kierowca/{plate}", null, page);
+
+            var driver = await _driversRepository.FindDriverByPlate(plate);
+            itemsPageViewModel.DriverInfoPanel = Mapper.Map<DriverInfoViewModel>(driver);
+            itemsPageViewModel.Title = itemsPageViewModel.DriverInfoPanel.Plate;
+
+            return View("Index", itemsPageViewModel);
         }
 
         public ActionResult AddItem()
@@ -97,7 +104,7 @@ namespace Driver.WebSite.Controllers
 
             await _itemsRepository.AddItem(item);
 
-            var homeViewModel = await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery);
+            var homeViewModel = await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, "Strona Główna");
             homeViewModel.DisplayAddedInfo = true;
 
             return View("Index", homeViewModel);
@@ -190,8 +197,8 @@ namespace Driver.WebSite.Controllers
             return viewModel;
         }
 
-        private async Task<ItemsPageViewModel> PrepareItemsPageViewModel(IItemsQuery itemsQuery, string pageHref = null, 
-            int? page = null)
+        private async Task<ItemsPageViewModel> PrepareItemsPageViewModel(IItemsQuery itemsQuery, string title, 
+            string pageHref = null, int? page = null)
         {
             int pageIdx = page - 1 ?? 0;
 
@@ -206,6 +213,7 @@ namespace Driver.WebSite.Controllers
 
             return new ItemsPageViewModel
             {
+                Title = title,
                 Items = itemPanelViewModels,
                 Sidebar = sidebar,
                 Pagination = new PaginationViewModel(pageHref, pageIdx+1, canGoToNextPage)

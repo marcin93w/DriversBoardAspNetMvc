@@ -269,6 +269,7 @@
     <Compile Include="Source\Models\Vote.cs" />
     <Compile Include="Source\ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="Source\Models\Comment.cs" />
+    <Compile Include="Source\ViewModels\DriverInfoViewModel.cs" />
     <Compile Include="Source\ViewModels\ItemPage\AddCommentViewModel.cs" />
     <Compile Include="Source\ViewModels\AddItem\AddDriverOccurrenceViewModel.cs" />
     <Compile Include="Source\ViewModels\ItemPage\CommentViewModel.cs" />
@@ -369,6 +370,7 @@
     <Content Include="Views\Home\_AddDriver.cshtml" />
     <Content Include="Views\Home\_DriversRankingPanel.cshtml" />
     <Content Include="Views\Home\_Pagination.cshtml" />
+    <Content Include="Views\Home\_DriverInfoPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
