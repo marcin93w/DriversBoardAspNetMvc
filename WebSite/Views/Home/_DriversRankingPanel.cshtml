@@ -8,7 +8,7 @@
         <table class="table-striped">
             @foreach (var driver in Model.Drivers)
             {
-                <tr class="ranking-driver" data-href="/kierowca/id/@driver.Id">
+                <tr class="ranking-driver" data-href="/kierowca/@driver.PlateId">
                     <td class="score">@driver.DownVotesCount</td>
                     <td>
                         <div class="plate">@driver.Plate</div>

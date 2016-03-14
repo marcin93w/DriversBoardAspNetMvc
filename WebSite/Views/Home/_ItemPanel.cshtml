@@ -46,14 +46,14 @@
                     <tr id="driver-occurrence-@driverOccurrence.Id">
                         <td class="plate-col">
                             <strong>
-                                @Html.ActionLink(driverOccurrence.Plate, "DriverItemsById",
-                                    new { driverId = driverOccurrence.DriverId })
+                                @Html.ActionLink(driverOccurrence.Plate, "DriverItems",
+                                    new { plate = driverOccurrence.DriverPlateId })
                             </strong>
                         </td>
 
                         <td class="desc-col">
-                            @Html.ActionLink(driverOccurrence.Description, "DriverItemsById",
-                                    new { driverId = driverOccurrence.DriverId })</td>
+                            @Html.ActionLink(driverOccurrence.Description, "DriverItems",
+                                    new { plate = driverOccurrence.DriverPlateId })</td>
                         <td class="score-col">
                             <strong class="text-danger">
                                 <span data-bind="text: downRate" title="Liczba punktów karnych" class="driver-score">

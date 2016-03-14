@@ -3,7 +3,7 @@
     public class DriverOccurrenceViewModel
     {
         public int Id { set; get; }
-        public int DriverId { get; set; }
+        public string DriverPlateId { get; set; }
         public string Plate { set; get; }
         public string Description { set; get; }
         public int StartSecond { set; get; }

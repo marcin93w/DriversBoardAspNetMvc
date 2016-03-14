@@ -31,9 +31,11 @@ namespace Driver.WebSite
                 .ForMember(vm => vm.UserVote, opt => opt.ResolveUsing<CommentUserVotingResolver>());
             cfg.CreateMap<DriverOccurrence, DriverOccurrenceViewModel>()
                 .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<DriverOccurrencePlateResolver>())
-                .ForMember(vm => vm.UserVote, opt => opt.ResolveUsing<DriverOccurrenceUserVotingResolver>());
+                .ForMember(vm => vm.UserVote, opt => opt.ResolveUsing<DriverOccurrenceUserVotingResolver>())
+                .ForMember(vm => vm.DriverPlateId, opt => opt.MapFrom(d => d.Driver.Plate));
             cfg.CreateMap<Models.Driver, DriverRankingViewModel>()
-                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<PlateResolver>());
+                .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<PlateResolver>())
+                .ForMember(vm => vm.PlateId, opt => opt.MapFrom(d => d.Plate));
             cfg.CreateMap<Models.Driver, DriverInfoViewModel>()
                 .ForMember(vm => vm.Plate, opt => opt.ResolveUsing<PlateResolver>());
 
