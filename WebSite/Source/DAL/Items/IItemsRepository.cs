@@ -5,12 +5,12 @@ namespace Driver.WebSite.DAL.Items
 {
     public interface IItemsRepository
     {
-        HomePageItemsQuery HomePageItemsQuery { get; }
-        TopItemsQuery TopItemsQuery { get; }
-        WaitingItemsQuery WaitingItemsQuery { get; }
+        IItemsQuery HomePageItemsQuery { get; }
+        IItemsQuery TopItemsQuery { get; }
+        IItemsQuery WaitingItemsQuery { get; }
 
-        DriverItemsQuery GetDriverItemsQuery(int driverId);
-        DriverItemsQuery GetDriverItemsQuery(string plate);
+        IItemsQuery GetDriverItemsQuery(int driverId);
+        IItemsQuery GetDriverItemsQuery(string plate);
 
         Task<Item> GetItem(int itemId, string userId);
 

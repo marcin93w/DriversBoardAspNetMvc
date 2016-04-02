@@ -19,16 +19,16 @@ namespace Driver.WebSite.DAL.Items
             context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        public HomePageItemsQuery HomePageItemsQuery { get; }
-        public TopItemsQuery TopItemsQuery { get; }
-        public WaitingItemsQuery WaitingItemsQuery { get; }
+        public IItemsQuery HomePageItemsQuery { get; }
+        public IItemsQuery TopItemsQuery { get; }
+        public IItemsQuery WaitingItemsQuery { get; }
 
-        public DriverItemsQuery GetDriverItemsQuery(int driverId)
+        public IItemsQuery GetDriverItemsQuery(int driverId)
         {
             return new DriverItemsQuery(_context, driverId);
         }
 
-        public DriverItemsQuery GetDriverItemsQuery(string plate)
+        public IItemsQuery GetDriverItemsQuery(string plate)
         {
             return new DriverItemsQuery(_context, plate);
         }
