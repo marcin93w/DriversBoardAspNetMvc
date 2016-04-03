@@ -287,6 +287,7 @@
     <Compile Include="Source\ViewModels\ItemPanel\ItemPanelViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\images\driver.png" />
     <Content Include="Resources\Styles\bootstrap-theme.css" />
     <Content Include="Resources\Styles\bootstrap-theme.min.css" />
     <Content Include="Resources\Styles\bootstrap.css" />
@@ -313,6 +314,9 @@
     <Content Include="Resources\Styles\bootstrap.css.map" />
     <Content Include="Resources\Styles\bootstrap-theme.min.css.map" />
     <Content Include="Resources\Styles\bootstrap-theme.css.map" />
+    <Content Include="Resources\fonts\Lobster_1.3.eot" />
+    <Content Include="Resources\fonts\Lobster_1.3.otf" />
+    <Content Include="Resources\fonts\Lobster_1.3.ttf" />
     <None Include="Resources\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Resources\Scripts\bootstrap.js" />
     <Content Include="Resources\Scripts\bootstrap.min.js" />
