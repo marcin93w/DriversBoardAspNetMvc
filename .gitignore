@@ -8,3 +8,5 @@
 /WebSiteTest/bin
 *.user
 /packages
+/WebSite/Web.Release.config
+/ak.pem
