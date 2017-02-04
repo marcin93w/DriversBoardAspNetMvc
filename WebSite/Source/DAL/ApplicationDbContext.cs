@@ -27,12 +27,12 @@ namespace Driver.WebSite.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Item>()
-                .Property(i => i.UpVotesCount)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-            modelBuilder.Entity<Item>()
-                .Property(i => i.DownVotesCount)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
+            //modelBuilder.Entity<Item>()
+            //    .Property(i => i.UpVotesCount)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
+            //modelBuilder.Entity<Item>()
+            //    .Property(i => i.DownVotesCount)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
             base.OnModelCreating(modelBuilder);
         }
 

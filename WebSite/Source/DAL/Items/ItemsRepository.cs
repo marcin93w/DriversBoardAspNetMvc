@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity.Migrations;
+using System.Linq;
 using System.Threading.Tasks;
 using Driver.WebSite.Models;
 
@@ -57,7 +58,7 @@ namespace Driver.WebSite.DAL.Items
 
         public async Task<int> AddComment(Comment comment)
         {
-            _context.Set<ApplicationUser>().Attach(comment.User);
+            comment.User = _context.Set<ApplicationUser>().FirstOrDefault(user => user.Id == comment.User.Id);
             _context.Comments.Add(comment);
             return await _context.SaveChangesAsync();
         }
