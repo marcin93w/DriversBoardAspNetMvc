@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Driver.WebSite.DAL;
+using Driver.WebSite.Migrations;
 
 namespace Driver.WebSite
 {
@@ -22,7 +23,7 @@ namespace Driver.WebSite
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfig.CreateMappings();
 
-            Database.SetInitializer<ApplicationDbContext>(null);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
     }
 }
