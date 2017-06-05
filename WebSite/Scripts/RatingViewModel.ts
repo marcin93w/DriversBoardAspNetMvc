@@ -8,7 +8,7 @@ abstract class VotingViewModel {
     rate: KnockoutObservable<number>;
 
     constructor(id: number, rate: number, currentUserVote: number) {
-        this.votingApiUrl = 'http://localhost:5185/api/' + this.getControllerName() + '/';
+        this.votingApiUrl = 'http://drivers4agh.ddns.net/api/' + this.getControllerName() + '/';
         this.id = id;
         this.currentUserVote = ko.observable(currentUserVote);
         this.rate = ko.observable(rate);

@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var VotingViewModel = (function () {
     function VotingViewModel(id, rate, currentUserVote) {
-        this.votingApiUrl = 'http://localhost:5185/api/' + this.getControllerName() + '/';
+        this.votingApiUrl = 'http://drivers4agh.ddns.net/api/' + this.getControllerName() + '/';
         this.id = id;
         this.currentUserVote = ko.observable(currentUserVote);
         this.rate = ko.observable(rate);
