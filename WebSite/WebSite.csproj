@@ -269,6 +269,8 @@
     <Compile Include="Source\Models\Item.cs" />
     <Compile Include="Source\Models\ItemContentType.cs" />
     <Compile Include="Source\Models\Vote.cs" />
+    <Compile Include="Source\Security\AppSensorClient.cs" />
+    <Compile Include="Source\Security\Event.cs" />
     <Compile Include="Source\ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="Source\Models\Comment.cs" />
     <Compile Include="Source\ViewModels\DriverInfoViewModel.cs" />
