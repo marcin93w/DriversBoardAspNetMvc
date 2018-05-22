@@ -9,6 +9,7 @@ using Driver.WebSite.DAL.Votes;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
+using Driver.WebSite.Source.Security;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -76,6 +77,9 @@ namespace Driver.WebSite
             kernel.Bind<HomePageItemsQuery>().ToSelf().InRequestScope();
             kernel.Bind<TopItemsQuery>().ToSelf().InRequestScope();
             kernel.Bind<WaitingItemsQuery>().ToSelf().InRequestScope();
+
+            kernel.Bind<AppSensorClient>().ToSelf();
+            kernel.Bind<MaliciousRequestsDetector>().ToSelf();
         }        
     }
 }

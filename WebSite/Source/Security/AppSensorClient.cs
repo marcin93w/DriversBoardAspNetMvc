@@ -36,5 +36,17 @@ namespace Driver.WebSite.Source.Security
 
             var responseString = await response.Content.ReadAsStringAsync();
         }
+
+        public async Task ReportEventAsync(DetectionPoint detectionPoint)
+        {
+            await ReportEventAsync(new Event
+            {
+                User = new User
+                {
+                    Username = HttpContext.Current.User?.Identity?.Name ?? "[anonymous]"
+                },
+                DetectionPoint = detectionPoint
+            });
+        }
     }
 }

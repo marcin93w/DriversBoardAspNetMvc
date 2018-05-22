@@ -236,6 +236,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Source\Security\MaliciousRequestsDetector.cs" />
     <Compile Include="Source\Controllers\AccountController.cs" />
     <Compile Include="Source\Controllers\ControllersHelper.cs" />
     <Compile Include="Source\Controllers\HomeController.cs" />

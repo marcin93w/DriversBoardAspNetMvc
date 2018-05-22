@@ -9,6 +9,7 @@ using AutoMapper;
 using Driver.WebSite.DAL.Drivers;
 using Driver.WebSite.DAL.Items;
 using Driver.WebSite.Models;
+using Driver.WebSite.Source.Security;
 using Driver.WebSite.ViewModels;
 using Driver.WebSite.ViewModels.AddItem;
 using Driver.WebSite.ViewModels.ItemPage;
@@ -33,6 +34,7 @@ namespace Driver.WebSite.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public async Task<ActionResult> Index(int? page)
         {
             return View(await PrepareItemsPageViewModel(_itemsRepository.HomePageItemsQuery, "Strona Główna", null, page));
