@@ -12,6 +12,8 @@ namespace Driver.WebSite.Source.Security
 {
     public class AppSensorClient
     {
+        private const string AppSensorUrl = "http://localhost:8085/api/v1.0/events";
+
         private readonly HttpClient client;
         private readonly JsonSerializerSettings JsonSerializerSettings;
 
@@ -30,7 +32,7 @@ namespace Driver.WebSite.Source.Security
             var json = JsonConvert.SerializeObject(@event, JsonSerializerSettings);
 
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://localhost:8085/api/v1.0/events", stringContent);
+            var response = await client.PostAsync(AppSensorUrl, stringContent);
 
             var responseString = await response.Content.ReadAsStringAsync();
         }
